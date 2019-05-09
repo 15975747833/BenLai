@@ -11,24 +11,25 @@ import Cart from './views/Cart.vue';
 import My from './views/My.vue';
 import Login from './views/Login.vue';
 
+import Search from './views/Search.vue';
+import Address from './views/Address.vue';
+
 import Footer from './components/Footer.vue'
 // console.log('footer',Footer);
-
 
 
 export default new Router({
   // mode: 'history',
   base: process.env.BASE_URL,
-  routes: [
-    {
-      path:'/',
-      redirect:'/home'
+  routes: [{
+      path: '/',
+      redirect: '/home'
     },
     {
       name: 'Home',
       path: '/home',
       components: {
-        default:Home,
+        default: Home,
         Footer
       }
     },
@@ -36,10 +37,7 @@ export default new Router({
       name: 'Category',
       path: '/category',
       component: Category,
-      children:[{
-        name:'水果',
-        path:'/5cd121f8a2b95e1f1c79586e'
-      }]
+
     },
     {
       name: 'Login',
@@ -55,6 +53,16 @@ export default new Router({
       name: 'My',
       path: '/my',
       component: My
+    }, 
+    {
+      name: 'Search',
+      path: '/search',
+      component: Search
+    }, 
+    {
+      name: 'Address',
+      path: '/address',
+      component: Address
     }
   ]
 })

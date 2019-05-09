@@ -4,13 +4,13 @@
       <el-header style="height:0.44rem;">
         <el-row>
           <el-col :span="6">
-            <div class="grid-content bg-purple">
+            <div class="grid-content bg-purple" @click="goto('/Address')">
               <a href="#" class="city">佛山</a>
             </div>
           </el-col>
           <el-col :span="18">
             <div class="grid-content bg-purple">
-              <el-input placeholder="请输入内容">
+              <el-input placeholder="请输入内容" @focus="goto('/search')">
                 <i slot="prefix" class="el-input__icon el-icon-search"></i>
                 <i slot="suffix" class="el-input__icon el-icon-date"></i>
               </el-input>
@@ -146,6 +146,9 @@ export default {
 
 
         });
+    },
+    goto(path){
+      this.$router.push(path);
     }
   }
 };
