@@ -4,26 +4,26 @@
             <router-view/>
         </div>
       <el-footer style="height: 0.49rem;padding:0.12rem 0rem;" id="footer">
-          <a href="#"  @click="goto('/home')">
+          <span  @click="goto('/home')">
           <i class="el-icon-house"></i>
           <span>首页</span>
-          </a>
-          <a href="#" @click="goto('/category')">
+          </span>
+          <span @click="goto('/category')">
           <i class="el-icon-postcard"></i>
           <span>分类</span>
-          </a>
-          <a href="#" @click="goto('/login')">
+          </span>
+          <span @click="goto('/login')">
           <i class="el-icon-help"></i>
           <span>充值</span>
-          </a>
-          <a href="#" @click="goto('/cart')">
+          </span>
+          <span @click="goto('/cart')">
           <i class="el-icon-shopping-cart-1"></i>
           <span>购物车</span>
-          </a>
-          <a href="#" @click="goto('/my')">
+          </span>
+          <span @click="goto('/my')">
           <i class="el-icon-user"></i>
           <span>我的</span>
-          </a>
+          </span>
       </el-footer>
   </div>
 </template>
@@ -65,14 +65,12 @@ body {
     background: #fff;
     bottom: 0;
     width: 100%;
-
     border-top: 1px solid #ccc;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    a{
+    span{
         width: 20%;
         i {
             display: block;

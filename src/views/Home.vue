@@ -15,345 +15,215 @@
         </el-row>
       </el-header>
       <div id="nav">
-        <div class="list">
-          <ul class="tab1">
-            <li>
-              <a>推荐</a>
-            </li>
-            <li>
-              <a>推荐</a>
-            </li>
-            <!-- <li style="width:26%;"><img src="https://image3.benlailife.com/AppHomePageImage/896d8544-e134-14c1-1460-398967aa7ba4.jpg" style="width:60px;height:30px;display=inlin-block"></li> -->
-            <li>
-              <a>水果</a>
-            </li>
-            <li>
-              <a>推荐</a>
-            </li>
-            <li>
-              <a>水果</a>
-            </li>
-            <li>
-              <a>推荐</a>
-            </li>
-          </ul>
-          <ul class="tab2">
-            <li>
-              <a>推荐</a>
-            </li>
-            <li>
-              <a>推荐</a>
-            </li>
-            <li>
-              <a>水果</a>
-            </li>
-            <li>
-              <a>推荐</a>
-            </li>
-            <li>
-              <a>水果</a>
-            </li>
-            <li>
-              <a>推荐</a>
-            </li>
-          </ul>
+        <div class="list" style="width:100%">
+          <div style="margin:0 5px;">
+            <img
+              src="https://image5.benlailife.com/AppHomePageImage/5d9df140-0134-1460-114e-2796f29d59df.gif"
+              style="width:70px;"
+            >
+          </div>
+          <el-tabs v-model="activeName" style="width:200%">
+            <el-tab-pane label="推荐" name="first">推荐</el-tab-pane>
+            <el-tab-pane label="水果" name="second">水果</el-tab-pane>
+            <el-tab-pane label="水产" name="third">水产</el-tab-pane>
+            <el-tab-pane label="肉禽" name="fourth">肉禽</el-tab-pane>
+            <el-tab-pane label="蔬菜" name="five">蔬菜</el-tab-pane>
+            <el-tab-pane label="粮油" name="six">粮油</el-tab-pane>
+            <el-tab-pane label="熟食" name="seven">熟食</el-tab-pane>
+            <el-tab-pane label="乳品" name="eight">乳品</el-tab-pane>
+            <el-tab-pane label="零食" name="nine">零食</el-tab-pane>
+            <el-tab-pane label="酒饮" name="ten">酒饮</el-tab-pane>
+            <el-tab-pane label="厨具" name="eleven">厨具</el-tab-pane>
+          </el-tabs>
         </div>
       </div>
     </div>
     <div id="main">
       <div class="banner">
-        <!-- <el-carousel indicator-position="outside" class="lbt">
-          <el-carousel-item v-for="item in imgs" :key="item.id">
-            <img :src="item.img">
-          </el-carousel-item>
-        </el-carousel>-->
-        <el-carousel class="lbt">
+        <el-carousel class="lbt" height="170px">
           <el-carousel-item v-for="item in imgs" :key="item.id">
             <div class="lbt-item">
-              <img :src="item.img">
+              <img :src="item.img" style="height:170px;">
             </div>
           </el-carousel-item>
         </el-carousel>
       </div>
 
+      <div>
+        <img
+          alt="本来生活|包邮直采，泰国金枕榴莲229元/8-10斤！"
+          src="//image.benlailife.com/AppHomePageImage/98615be526c4438681e3567a8fdbcc4e_n-n.gif?imageView2/2/w/1035/format/webp"
+          style="opacity: 1;"
+        >
+      </div>
+
+      <ul class="tab2">
+        <li>
+          <img
+            src="//image5.benlailife.com/Customer/GradeIcon/8d35e656-583f-4ff0-a0f7-28f3b2452bf3_n-n.png?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image1.benlailife.com/Customer/GradeIcon/8b68139f-8350-4f49-bd46-77089c64a1f1_n-n.png?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image2.benlailife.com/Customer/GradeIcon/b72bf52d-94d8-4143-ac7c-4116ddea3189_n-n.png?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image7.benlailife.com/Customer/GradeIcon/c8a5d307-c009-46c1-a52d-f8a9a957782a_n-n.png?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+      </ul>
       <ul class="tabhui">
-          <li>
-            <img src="../img/hui.png">
-          </li>
-          <li>
-          <img src="../img/hui.png">
-          </li>
-          <li>
-          <img src="../img/hui.png">
-          </li>
-          <li>
-          <img src="../img/hui.png">
-          <li>
-            <img src="../img/hui.png">
-          </li>
-          <li>
-          <img src="../img/hui.png">
-          </li>
-          <li>
-          <img src="../img/hui.png">
-          </li>
-          <li>
-          <img src="../img/hui.png">
-          </li>
-        </ul>
-
-
-      <ul class="tab3" title="新人注册">
-        <li style="background:yellow;height:0.38rem;">
-          <a>
-            <img src="" alt="">
-          </a>
+        <li>
+          <img
+            src="//image3.benlailife.com/Customer/GradeIcon/cc4ed212-bf0f-496f-b72e-2d09cfd44514_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
         </li>
-        <li style="background:red;height:0.38rem;">
-          <a>
-            <img src="" alt="">
-          </a>
+        <li>
+          <img
+            src="//image7.benlailife.com/Customer/GradeIcon/a52ab09f-f52c-43d3-87ce-cba914c8b4d9_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
         </li>
-        <li style="background:blue;height:0.38rem;">
-          <a>
-            <img src="" alt="">
-          </a>
+        <li>
+          <img
+            src="//image1.benlailife.com/Customer/GradeIcon/fabbf791-372b-4fd2-a99c-fc4a315d484b_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
         </li>
-        <li style="background:green;height:0.38rem;">
-          <a>
-            <img src="" alt="">
-          </a>
+        <li>
+          <img
+            src="//image3.benlailife.com/Customer/GradeIcon/dbdc93b9-eaf9-4da5-8c93-bbbb96e9bf99_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
         </li>
-        <li style="background:pink;height:0.38rem;">
-          <a>
-            <img src="" alt="">
-          </a>
+        <li>
+          <img
+            src="//image3.benlailife.com/Customer/GradeIcon/ce4ac7ec-cec9-41ea-aa89-62d17b2de8f5_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
         </li>
-        <li style="background:red;height:0.38rem;">
-          <a>
-            <img src="" alt="">
-          </a>
+        <li>
+          <img
+            src="//image4.benlailife.com/Customer/GradeIcon/5a050612-56d2-417e-9873-647a27896bfc_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
         </li>
-        <li style="background:pink;height:0.38rem;">
-          <a>
-            <img src="" alt="">
-          </a>
+        <li>
+          <img
+            src="//image3.benlailife.com/Customer/GradeIcon/5e37b680-2fe7-4a96-aafe-f24306bd5a0c_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
         </li>
-        <li style="background:green;height:0.38rem;">
-          <a>
-            <img src>
-          </a>
+        <li>
+          <img
+            src="//image6.benlailife.com/Customer/GradeIcon/ce0ee138-f34a-4c1d-9da3-ec0ecba74539_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image3.benlailife.com/Customer/GradeIcon/ec14d993-815e-4de0-a649-ee14c5801362_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image4.benlailife.com/Customer/GradeIcon/f70a33b6-80a4-400e-9384-2484dbf0bcfc_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image1.benlailife.com/Customer/GradeIcon/ae069414-87dd-4aa2-b4ab-11b193980c35_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image4.benlailife.com/Customer/GradeIcon/97df1dd6-e860-49d1-bbb0-06053668e2a0_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
         </li>
       </ul>
-
-      <ul class="tab4">
+      <ul class="tab3">
         <li>
-          <img src="../img/zhenjiapei.png">
+          <img
+            src="//image3.benlailife.com/AppHomePageImage/c55c0d2348cc435b861484cb74fa6fa0_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
         </li>
         <li>
-          <img src="../img/zhenjiapei.png">
+          <img
+            src="//image.benlailife.com/AppHomePageImage/a518d9e1ef9b435a8eab9190f1fe06a0_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
         </li>
         <li>
-          <img src="../img/zhenjiapei.png">
+          <img
+            src="//image4.benlailife.com/AppHomePageImage/3a94848225c642999add1dd25dfa2a3c_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image6.benlailife.com/AppHomePageImage/ef952cedceef4ff288938f3226845164_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image5.benlailife.com/AppHomePageImage/cb49723be0ff448ba58a401cff9e3622_n-n.gif?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image5.benlailife.com/AppHomePageImage/2be4ac1b900341f9a749864565aed296_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image4.benlailife.com/AppHomePageImage/a982503bd26d4452be76446209022bb6_n-n.gif?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image2.benlailife.com/AppHomePageImage/263e75d8c55a4791884db6a187138f05_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image6.benlailife.com/AppHomePageImage/2cff1d34f22641449e37b12b86951b02_n-n.gif?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image3.benlailife.com/AppHomePageImage/61aefb753f274ebf86e9566464e9bcb8_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image4.benlailife.com/AppHomePageImage/823e0b475086497fab2c1d8ae144dccf_n-n.gif?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image5.benlailife.com/AppHomePageImage/6b477752d0ad4c31aad7e92cfc9a7c2f_n-n.gif?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image7.benlailife.com/AppHomePageImage/b0ced95803ac4cd29fdcfd2356221617_n-n.gif?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image.benlailife.com/AppHomePageImage/c6585aa481564d62b5914d242ef6f929_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image5.benlailife.com/AppHomePageImage/405afe43c5384256b8f8de4a996daf05_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
+        </li>
+        <li>
+          <img
+            src="//image7.benlailife.com/AppHomePageImage/9f0903823113422b81f49a685b65c2b5_n-n.jpg?imageView2/2/w/1035/format/webp"
+          >
         </li>
       </ul>
-
-        <ul class="tab5">
-          <li>
-            <img src="../img/yueka.png">
-          </li>
-          <li>
-          <img src="../img/yueka.png">
-          </li>
-          <li>
-          <img src="../img/yueka.png">
-          </li>
-          <li>
-          <img src="../img/yueka.png">
-          </li>
-        </ul>
-
-      <ul class="tab4" title="28张龙虾观音">
-        <li>
-          <img src="../img/tieguanyin.png" class="tu-zhen">
-        </li>
-        <li>
-          <img src="../img/tieguanyin.png" class="tu-zhen">
-        </li>
-        <li>
-          <img src="../img/tieguanyin.png" class="tu-zhen">
-        </li>
-      </ul>
-
-      <div class="title">
-        <img src="../img/mqjtitle.png">
-      </div>
-      <ul class="tab4" title="28张母亲节">
-        <li>
-          <img src="../img/muqin.png" class="tu-zhen">
-        </li>
-        <li>
-          <img src="../img/muqin.png" class="tu-zhen">
-        </li>
-        <li>
-          <img src="../img/muqin.png" class="tu-zhen">
-        </li>
-      </ul>
-
-      <div class="title" title="原产地水果">
-        <img src="../img/mqjtitle.png">
-      </div>
-      <div class="cartlist">
-        <ul>
-          <li>
-            <img src="../img/cart-tu.png" alt="">
-            <p>海南龙眼 1kg装</p>
-            <div class="price">
-              <p>
-                <span>￥42.8</span>
-              </p>
-              <del>￥69.8</del>
-              <i><img src="../img/cart_icon.png" alt=""></i>
-            </div>
-          </li>
-          <li>
-            <img src="../img/cart-tu.png" alt="">
-            <p>海南龙眼 1kg装</p>
-            <div class="price">
-              <p>
-                <span>￥42.8</span>
-              </p>
-              <del>￥69.8</del>
-              <i><img src="../img/cart_icon.png" alt=""></i>
-            </div>
-          </li>
-          <li>
-            <img src="../img/cart-tu.png" alt="">
-            <p>海南龙眼 1kg装</p>
-            <div class="price">
-              <p>
-                <span>￥42.8</span>
-              </p>
-              <del>￥69.8</del>
-              <i><img src="../img/cart_icon.png" alt=""></i>
-            </div>
-          </li>
-          <li>
-            <img src="../img/cart-tu.png" alt="">
-            <p>海南龙眼 1kg装</p>
-            <div class="price">
-              <p>
-                <span>￥42.8</span>
-              </p>
-              <del>￥69.8</del>
-              <i><img src="../img/cart_icon.png" alt=""></i>
-            </div>
-          </li>
-          <li>
-            <img src="../img/cart-tu.png" alt="">
-            <p>海南龙眼 1kg装</p>
-            <div class="price">
-              <p>
-                <span>￥42.8</span>
-              </p>
-              <del>￥69.8</del>
-              <i><img src="../img/cart_icon.png" alt=""></i>
-            </div>
-          </li>
-          <li>
-            <img src="../img/cart-tu.png" alt="">
-            <p>海南龙眼 1kg装</p>
-            <div class="price">
-              <p>
-                <span>￥42.8</span>
-              </p>
-              <del>￥69.8</del>
-              <i><img src="../img/cart_icon.png" alt=""></i>
-            </div>
-          </li>
-          <li>
-            <img src="../img/cart-tu.png" alt="">
-            <p>海南龙眼 1kg装</p>
-            <div class="price">
-              <p>
-                <span>￥42.8</span>
-              </p>
-              <del>￥69.8</del>
-              <i><img src="../img/cart_icon.png" alt=""></i>
-            </div>
-          </li>
-          <li>
-            <img src="../img/cart-tu.png" alt="">
-            <p>海南龙眼 1kg装</p>
-            <div class="price">
-              <p>
-                <span>￥42.8</span>
-              </p>
-              <del>￥69.8</del>
-              <i><img src="../img/cart_icon.png" alt=""></i>
-            </div>
-          </li>
-          <li>
-            <img src="../img/cart-tu.png" alt="">
-            <p>海南龙眼 1kg装</p>
-            <div class="price">
-              <p>
-                <span>￥42.8</span>
-              </p>
-              <del>￥69.8</del>
-              <i><img src="../img/cart_icon.png" alt=""></i>
-            </div>
-          </li>
-        </ul>
-      </div>
-
-      <div class="title" title="甜的我心水果">
-        <img src="../img/mqjtitle.png">
-      </div>
-      <div class="cartUnit">
-        <ul>
-          <li>
-            <img src="../img/cartUnit.png">
-            <div class="info">
-              <h4>墨西哥牛油果 10个装（1.4kg以上）</h4>
-              <p class="content">
-                森林奶油 粮食水果
-              </p>
-              <p class="method">冷链配</p>
-              <p class="price"><span>￥99.0</span> <del>￥169</del></p>
-              <i><img src="../img/cart_icon.png" alt=""></i>
-            </div>
-          </li>
-          <li>
-            <img src="../img/cartUnit.png">
-            <div class="info">
-              <h4>墨西哥牛油果 10个装（1.4kg以上）</h4>
-              <p class="content">
-                森林奶油 粮食水果
-              </p>
-              <p class="method">冷链配</p>
-              <p class="price"><span>￥99.0</span> <del>￥169</del></p>
-              <i><img src="../img/cart_icon.png" alt=""></i>
-            </div>
-          </li>
-          <li>
-            <img src="../img/cartUnit.png">
-            <div class="info">
-              <h4>墨西哥牛油果 10个装（1.4kg以上）</h4>
-              <p class="content">
-                森林奶油 粮食水果
-              </p>
-              <p class="method">冷链配</p>
-              <p class="price"><span>￥99.0</span> <del>￥169</del></p>
-              <i><img src="../img/cart_icon.png" alt=""></i>
-            </div>
-          </li>
-        </ul>
-      </div>
-
     </div>
-
-    
   </div>
 </template>
 
@@ -361,30 +231,32 @@
 export default {
   data: function() {
     return {
+      activeName: "first",
       imgs: [
         {
           id: 1,
-          img: "img/jingjing.jpg"
+          img:
+            "https://image.benlailife.com/AppHomePageImage/72cd40d56232476a816e9edfe4ab2120_n-n.jpg?imageView2/2/w/1035/format/webp"
         },
         {
           id: 2,
-          img: "img/laoxie.jpg"
+          img:
+            "https://image1.benlailife.com/AppHomePageImage/d82ef3926bf74e0bbb84833263c5aed0_n-n.jpg?imageView2/2/w/1035/format/webp"
         },
         {
           id: 3,
-          img: "img/lemon.jpg.jpg"
+          img:
+            "https://image1.benlailife.com/AppHomePageImage/c5e998fadab244dba7452fdece966dd6_n-n.jpg?imageView2/2/w/1035/format/webp"
         },
         {
           id: 4,
-          img: "img/laoyao.jpg.jpg"
+          img:
+            "https://image.benlailife.com/AppHomePageImage/5eacf8dcf5e445d3a510c2df6fe31e9a_n-n.jpg?imageView2/2/w/1035/format/webp"
         },
         {
           id: 5,
-          img: "img/malin.jpg.jpg"
-        },
-        {
-          id: 6,
-          img: "img/tingting.jpg"
+          img:
+            "https://image4.benlailife.com/AppHomePageImage/ff3697e109fd4502a6c88a369b7e2159_n-n.jpg?imageView2/2/w/1035/format/webp"
         }
       ]
       // imgs:['img/jingjing.jpg','img/laoxie.jpg','img/lemon.jpg','img/laoyao.jpg','img/malin.jpg','img/tiantian.jpg','img/tingting.jpg']
@@ -401,12 +273,12 @@ export default {
   left: 0;
   top: 0;
   z-index: 99;
-  background: #fec849;
+  background: #fff;
   .header {
     width: 100%;
     padding: 0.08rem 0.08rem 0rem 0.08rem;
     height: 0.36rem;
-    background: #fec849;
+    background: #fff;
     position: relative;
     .dizhi {
       display: block;
@@ -444,34 +316,12 @@ export default {
     .list {
       width: 100%;
       display: flex;
-      ul {
-        flex: none;
-        width: 100%;
-        height: 0.35rem;
-        overflow-x: auto;
-        overflow-y: hidden;
-        display: flex;
-        position: relative;
-        li {
-          width: 13%;
-          padding: 0.09rem 0.06rem;
-          float: left;
-          a {
-            display: block;
-            color: #666;
-            font-size: 0.13rem;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-          }
-        }
-      }
     }
   }
 }
 
 #main {
-  margin-top: 1rem;
+  margin-top: 0.9rem;
   display: block;
   flex: 1;
   overflow-x: hidden;
@@ -484,14 +334,20 @@ export default {
       position: relative;
     }
   }
-  .tabhui{
+  .tab2 {
+    li {
+      width: 25%;
+      float: left;
+    }
+  }
+  .tabhui {
     width: 100%;
     overflow: hidden;
-     display: flex;
-     flex-wrap: wrap;
-    background:yellow;
-      li{
-      width:25%;
+    display: flex;
+    flex-wrap: wrap;
+    background: yellow;
+    li {
+      width: 25%;
       height: 0.79rem;
     }
   }
@@ -501,14 +357,13 @@ export default {
     display: flex;
     flex-wrap: wrap;
     li {
-      width: 25%;
-      height: 0.345rem;
+      width: 100%;
     }
   }
   .tab4 {
-    width:100%;
+    width: 100%;
     overflow: hidden;
-    li{
+    li {
       height: 1.5rem;
     }
   }
@@ -516,14 +371,14 @@ export default {
     width: 100%;
     height: 0.62rem;
   }
-  .tab5{
+  .tab5 {
     width: 100%;
     height: 2.4rem;
-     display: flex;
-     flex-wrap: wrap;
-    background:yellow;
-      li{
-      width:50%;
+    display: flex;
+    flex-wrap: wrap;
+    background: yellow;
+    li {
+      width: 50%;
       height: 1.2rem;
     }
   }
@@ -532,132 +387,133 @@ export default {
     width: 100%;
     height: 100%;
   }
-  .cartlist{
-    width:100%;
-    height:6.3rem;
+  .cartlist {
+    width: 100%;
+    height: 6.3rem;
     display: block;
-    padding-bottom:10px;
-    ul{
-      width:100%;
+    padding-bottom: 10px;
+    ul {
+      width: 100%;
       overflow: hidden;
       display: flex;
       flex-wrap: wrap;
       position: relative;
-        li{
-          width:33.3%;
-          height: 2.19rem;  
-          img{
-            width:1.27rem;
-            height:1.27rem;
+      li {
+        width: 33.3%;
+        height: 2.19rem;
+        img {
+          width: 1.27rem;
+          height: 1.27rem;
+        }
+        p {
+          padding: 0 0 0 0.1rem;
+          text-align: left;
+          font-size: 0.12rem;
+          height: 0.22rem;
+          line-height: 0.08rem;
+          padding-top: 0.06rem;
+        }
+        .price {
+          text-align: left;
+          height: 0.08rem;
+          line-height: 0.08rem;
+          position: relative;
+          span {
+            font-size: 0.16rem;
+            color: #ff6900;
           }
-          p{
-            padding:0 0 0 0.1rem;
-            text-align: left;
-            font-size: .12rem;
-            height: .22rem;
-            line-height: .08rem;
-            padding-top: .06rem;
+          del {
+            padding: 0 0 0 0.12rem;
+            font-size: 0.02rem;
           }
-          .price{
-            text-align: left;
-            height: 0.08rem;
-            line-height: .08rem;
-            position: relative;
-            span{
-              font-size: .16rem;
-              color:#ff6900;
-            }
-            del{
-              padding:0 0 0 0.12rem;
-              font-size:0.02rem;
-            }
-            i{
-              display: block;
-              position:absolute;
-              right:0.24rem;
-              bottom:-0.28rem;
-             img{width:0.24rem;height:0.19rem;}
+          i {
+            display: block;
+            position: absolute;
+            right: 0.24rem;
+            bottom: -0.28rem;
+            img {
+              width: 0.24rem;
+              height: 0.19rem;
             }
           }
         }
-        
+      }
     }
   }
-  .cartUnit{
-    ul{
-      width:100;
+  .cartUnit {
+    ul {
+      width: 100;
       overflow: hidden;
-      li{
-       width:100%;
-       height:1.26rem;
-       position: relative;
-        img{
-          width:1rem;
-          height:1rem;
+      li {
+        width: 100%;
+        height: 1.26rem;
+        position: relative;
+        img {
+          width: 1rem;
+          height: 1rem;
           float: left;
         }
-        .info{
-          width:auto;
-          padding:15px;
-          height:1rem;
+        .info {
+          width: auto;
+          padding: 15px;
+          height: 1rem;
           float: left;
-          h4{
-              font-size: .14rem;
-              color: #000;
-              font-weight: normal;
-              overflow: hidden;
-              height: .2rem;
-              line-height: .2rem;
+          h4 {
+            font-size: 0.14rem;
+            color: #000;
+            font-weight: normal;
+            overflow: hidden;
+            height: 0.2rem;
+            line-height: 0.2rem;
           }
-          .content{
-              font-size: .12rem;
+          .content {
+            font-size: 0.12rem;
+            color: #999;
+            overflow: hidden;
+            height: 0.2rem;
+            line-height: 0.2rem;
+          }
+          .method {
+            float: left;
+            line-height: 0.15rem;
+            height: 0.16rem;
+            color: #ff6900;
+            border: 1px solid #ffdfc7;
+            font-size: 0.1rem;
+            margin: 0.08rem 0.05rem 0rem 0rem;
+            padding: 0rem 0.03rem;
+            box-sizing: border-box;
+            background-color: #fff4eb;
+          }
+          .price {
+            position: absolute;
+            z-index: 10;
+            left: 0;
+            bottom: -0.04rem;
+            font-size: 0.12rem;
+            color: #ff6900;
+            line-height: 0.2rem;
+            span {
+              font-size: 0.18rem;
+              font-weight: 700;
+            }
+            del {
+              font-size: 0.12rem;
               color: #999;
-              overflow: hidden;
-              height: .2rem;
-              line-height: .2rem;
-          }
-          .method{
-              float: left;
-              line-height: .15rem;
-              height: .16rem;
-              color: #ff6900;
-              border: 1px solid #ffdfc7;
-              font-size: .1rem;
-              margin: .08rem .05rem 0rem 0rem;
-              padding: 0rem .03rem;
-              box-sizing: border-box;
-              background-color: #fff4eb;
-          }
-          .price{
-              position: absolute;
-              z-index: 10;
-              left: 0;
-              bottom: -.04rem;
-              font-size: .12rem;
-              color: #ff6900;
-              line-height: .2rem;
-               span{
-                  font-size: .18rem;
-                  font-weight: 700;
-              }
-              del{
-                font-size: .12rem;
-                color: #999;
-                margin-left: .1rem;
-                text-decoration: line-through;
-              }
-          }
-          i{
-            display: block;
-            position:absolute;
-            right:0.25rem;
-            bottom:0.09rem;
-            img{
-              width:0.24rem;
-              height:0.19rem;
+              margin-left: 0.1rem;
+              text-decoration: line-through;
             }
           }
-         
+          i {
+            display: block;
+            position: absolute;
+            right: 0.25rem;
+            bottom: 0.09rem;
+            img {
+              width: 0.24rem;
+              height: 0.19rem;
+            }
+          }
         }
       }
     }
