@@ -20,6 +20,7 @@
       </el-header>
       <el-main>
         <el-container>
+          <!-- left -->
           <el-aside width="25%">
             <el-menu class="el-menu-vertical-demo">
               <el-menu-item v-for="item in menu" :key="item._id" @click="getData(item.name)">
@@ -29,16 +30,15 @@
           </el-aside>
           <!-- right -->
           <el-main class="main_r">
-            //
-            <h3>{{typetitle}}</h3>
-            <div class="all" v-for="item in datalist" :key="item._id">
-              <a href="#">{{item.type}}</a>
+            <!-- 大类 -->
+            <div class="all">
+              <a href="#">全部{{currentCategory}}</a>
             </div>
-            <dl>
+            <dl v-for="child in subclass" :key="child.index">
               <dt>
                 <el-row>
                   <el-col :span="20">
-                    <div class="grid-content bg-purple dt-l">{{typetitle}}</div>
+                    <div class="grid-content bg-purple dt-l">{{child[0].typetitle}}</div>
                   </el-col>
                   <el-col :span="4">
                     <div class="grid-content bg-purple-light dt-r">
@@ -49,31 +49,26 @@
               </dt>
               <dd>
                 <el-row>
-                  <el-col :span="8">
+                  <el-col >
                     <div
                       class="grid-content bg-purple dd-item"
-                      v-for="item in datalist"
-                      :key="item.id"
+                      v-for="item in child" :key="item._id" 
                     >
                       <a href="#">
                         <img
                           class="lazy"
-                          :src="item.img"
+                          :src="item.imageUrl"
                           style="width: 62px; height: 62px; opacity: 1; margin:0 auto;"
                         >
                         <p
                           style="width: 100%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;"
-                        >{{item.name}}</p>
+                        >{{item.type}}</p>
                       </a>
                     </div>
                   </el-col>
                 </el-row>
               </dd>
             </dl>
-            <!-- 显示组建内容 -->
-            <!-- <keep-alive> -->
-            <!-- <router-view/> -->
-            <!-- </keep-alive> -->
           </el-main>
         </el-container>
       </el-main>
@@ -88,104 +83,27 @@ Vue.use(ElementUI);
 export default {
   data() {
     return {
-      category: [
-        {
-          id: 1,
-          name: "水果",
-          img: "/static/jingjing.jpg"
-        },
-        {
-          id: 2,
-          name: "蔬菜",
-          img: "./asset/jingjing.jpg"
-        },
-        {
-          id: 3,
-          name: "肉禽蛋品",
-          img: "asset/jingjing.jpg"
-        },
-        {
-          id: 4,
-          name: "水产海鲜",
-          img: "public/imgs/jingjing.jpg"
-        },
-        {
-          id: 5,
-          name: "水果",
-          img: "../public/imgs/jingjing.jpg"
-        },
-        {
-          id: 6,
-          name: "熟食面点",
-          img: "../public/imgs/jingjing.jpg"
-        },
-        {
-          id: 7,
-          name: "熟食面点",
-          img: "../public/imgs/jingjing.jpg"
-        },
-        {
-          id: 8,
-          name: "熟食面点",
-          img: "../public/imgs/jingjing.jpg"
-        },
-        {
-          id: 9,
-          name: "熟食面点"
-        },
-        {
-          id: 10,
-          name: "熟食面点"
-        },
-        {
-          id: 11,
-          name: "熟食面点"
-        },
-        {
-          id: 12,
-          name: "熟食面点"
-        },
-        {
-          id: 13,
-          name: "熟食面点"
-        },
-        {
-          id: 14,
-          name: "熟食面点",
-          img: "../public/imgs/jingjing.jpg"
-        },
-        {
-          id: 15,
-          name: "熟食面点",
-          img: "../public/imgs/jingjing.jpg"
-        },
-        {
-          id: 16,
-          name: "熟食面点",
-          img: "../public/imgs/jingjing.jpg"
-        }
-      ],
+      // @params  currentCategory 当前点击的大类名字
+      // menu 大类总名字
+      // datalist 当前渲染的数据
+      // typetitle 当前渲染数据的中类
+      currentCategory: [],
       menu: [],
       datalist: [],
-      typetitle: ""
+      typetitle: "",
+      subclass:[]
     };
   },
   created() {
     this.$axios
-      .get("http://193.112.60.97:19011/menu", {
-        // params: {
-        //   category: "水果",
-        //   type:"奇异果"
-        // }
-      })
+      .get("http://193.112.60.97:19011/menu", {})
       .then(({ data: menu }) => {
-        // console.log(data)
         this.menu = menu;
-        // console.log('menu',this.menu)
       });
   },
   methods: {
     getData(name) {
+      this.subclass=[],
       this.$axios
         .get("http://193.112.60.97:19011/goodslist", {
           params: {
@@ -195,9 +113,38 @@ export default {
         })
         .then(({ data }) => {
           this.datalist = data;
-          // console.log("data", this.datalist);
           this.typetitle = this.datalist[0].typetitle;
-          // this.menu = menu;
+          // 点击menu 把当前category保存下来
+          this.currentCategory = name;
+          console.log("origin",this.datalist);
+
+          // 把data中的typetitle种类保存下来,得到种类为typetitle的数据 过滤出data中含有typetitle的数据
+          let peon = de_duplication(this.datalist);
+          console.log("peon", peon);
+
+          function de_duplication(arr) {
+            let obj = {};
+            let peon = arr.reduce((cur, next) => {
+              obj[next.typetitle]
+                ? ""
+                : (obj[next.typetitle] = true && cur.push(next));
+              return cur;
+            }, []); //设置cur默认类型为数组，并且初始值为空的数组
+            //获取总类的数组--单独
+            return peon.map(item => item.typetitle);
+          }
+
+          // filter 出datalist里面typetitle属性的数据
+          for (let i = 0; i < peon.length; i++) {
+            let aa = []
+            aa = this.datalist.filter(item => item.typetitle == peon[i]);
+            // console.log('分类后',this.subclass);
+            // console.log("aa=",aa)
+            this.subclass.push(aa)
+          }
+          console.log("this.subclass=",this.subclass)
+
+
         });
     }
   }
