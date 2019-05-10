@@ -1,204 +1,153 @@
 <template>
-  <div class="login-page">
-    <el-header style="height:0.44rem">
-      <el-row :gutter="20">
-        <el-col :span="4">
-          <div class="grid-content bg-purple">&lt;</div>
-        </el-col>
-        <el-col :span="16">
-          <div class="grid-content bg-purple">登陆</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content bg-purple"></div>
-        </el-col>
-      </el-row>
-    </el-header>
-    <el-main>
-      <el-tabs type="border-card">
-        <el-tab-pane label="登陆">
-          <el-form
-            :model="ruleForm_login"
-            status-icon
-            :rules="rules"
-            ref="ruleForm"
-            label-width="80px"
-            class="demo-ruleForm"
-          >
-            <el-form-item label="账号" prop="login_username" >
-              <el-input v-model="login_username"></el-input>
-            </el-form-item>
-            <el-form-item label="密码" prop="login_psw">
-              <el-input type="password" v-model="ruleForm.login_psw" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="确认密码" prop="login_checkPass">
-              <el-input type="password" v-model="ruleForm.login_checkPass" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
-             
-            </el-form-item>
-          </el-form>
-        </el-tab-pane>
-        <el-tab-pane label="注册">
-          <el-form
-            :model="ruleForm"
-            status-icon
-            :rules="rules"
-            ref="ruleForm"
-            label-width="100px"
-            class="demo-ruleForm"
-          >
-            <el-form-item label="账号" prop="age" >
-              <el-input v-model.number="ruleForm.age"></el-input>
-            </el-form-item>
-            <el-form-item label="密码" prop="pass">
-              <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
-            </el-form-item>
-            
-            <el-form-item>
-              <el-button type="primary" @click="submitForm('ruleForm')">登陆</el-button>
-             
-            </el-form-item>
-          </el-form>
-        </el-tab-pane>
-      </el-tabs>
-<!-- 原来的样式 start -->
-      <!-- <el-row>
-        <el-col :span="12">
-          <div class="grid-content bg-purple active">手机快捷登陆</div>
-        </el-col>
-        <el-col :span="12">
-          <div class="grid-content bg-purple-light">账号密码登陆</div>
-        </el-col>
-      </el-row>
-      <div class="myform">
-        <el-row :gutter="20">
-          <el-col :span="16">
-            <div class="grid-content bg-purple">
-              <el-input placeholder="请选择日期" id="username" style="border:0;" v-model="keyword">
-                <i slot="prefix" class="el-input__icon el-icon-search"></i>
-              </el-input>
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <div class="grid-content bg-purple">
-              <el-button>默认按钮</el-button>
-            </div>
-          </el-col>
-        </el-row>
-
-        <el-input placeholder="请选择日期" id="password">
-          <i slot="prefix" class="el-input__icon el-icon-search"></i>
-        </el-input>
-      </div>
-      <div class="login__button">
-        <p class="login__prompt">未注册过的手机将自动保存为本来账户</p>
-        <a href="#" class="all_btn_green all_btn_xl all_btn_gray" id="fastLoginBt">登录</a>
-      </div>-->
-      <!-- 原来的样式 end -->
-    </el-main>
-  </div>
+  <el-tabs type="border-card">
+    <el-tab-pane label="注册">
+      <!-- <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign"> -->
+      <el-form
+        :model="ruleForm_reg"
+        :rules="rules"
+        ref="ruleForm_reg"
+        label-width="80px"
+        class="demo-ruleForm_reg"
+      >
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="ruleForm_reg.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="psw">
+          <el-input v-model="ruleForm_reg.psw"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="comfirmPsw">
+          <el-input v-model="ruleForm_reg.comfirmPsw"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm_reg')">提交</el-button>
+          <el-button @click="resetForm('ruleForm_reg')">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </el-tab-pane>
+    <el-tab-pane label="登陆">
+      <el-form
+        :model="ruleForm_reg"
+        :rules="rules"
+        ref="ruleForm_reg"
+        label-width="80px"
+        class="demo-ruleForm_reg"
+      >
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="ruleForm_reg.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="psw">
+          <el-input v-model="ruleForm_reg.psw"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="comfirmPsw">
+          <el-input v-model="ruleForm_reg.comfirmPsw"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm_reg')">提交</el-button>
+          <el-button @click="resetForm('ruleForm_reg')">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </el-tab-pane>
+  </el-tabs>
 </template>
 
 <script>
+import CryptoJS from "crypto-js";
 export default {
   data() {
-    return {
-      ruleForm: {
-        pass: "",
-        checkPass: "",
-        age: ""
-      },
-      // rules: {
-        // pass: [{ validator: validatePass, trigger: "blur" }],
-      //   checkPass: [{ validator: validatePass2, trigger: "blur" }],
-      //   age: [{ validator: checkAge, trigger: "blur" }]
-      // }
+    // value为comfirm的值
+    let checkPsw = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
+      } else if (value !== this.ruleForm_reg.psw) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
+      }
     };
-    // return {
-    //   keyword: ""
-    // };
+    // 向后端校验用户名是否存在
+    let checkUsername = (rule, value, callback) => {
+      this.$axios
+        .get("http://193.112.60.97:19011/reg/check", {
+          params: {
+            username: value
+          }
+        })
+        .then(({ data }) => {
+          if (data.status === 200) {
+            //直接调用回调函数==放行
+            callback();
+          } else if (data.status === 400) {
+            callback(new Error("用户名已存在"));
+          }
+        });
+    };
+    return {
+      ruleForm_reg: {
+        username: "",
+        psw: "",
+        comfirmPsw: ""
+      },
+      rules: {
+        username: [
+          // { validator: validatePass, trigger: 'blur' },
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          {
+            min: 6,
+            max: 11,
+            message: "长度在 6 到 11 个字符",
+            trigger: "blur"
+          },
+          // 用户名虚焦时，向后端发起请求用户名是否重复
+          {
+            validator: checkUsername,
+            trigger: "blur"
+          }
+        ],
+        psw: [
+          { required: true, message: "请输入密码 ", trigger: "blur" },
+          { min: 6, max: 11, message: "长度在 6 到 11 个字符", trigger: "blur" }
+        ],
+        comfirmPsw: [
+          { required: true, message: "请再次输入密码 ", trigger: "blur" },
+          {
+            validator: checkPsw,
+            trigger: "blur"
+          }
+        ]
+      }
+    };
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
+        // console.log(valid);
+        if (valid) {
+          this.$message("注册成功");
+          let { username, psw: password } = this.ruleForm_reg;
+          console.log("加密前：", password);
+          // 对password进行加密
+          let key = "laoxie1234567890"; //密钥
+          let iv = "laoxielaoxie6666"; //初始向量
+          key = CryptoJS.enc.Utf8.parse(key);
+          iv = CryptoJS.enc.Utf8.parse(iv);
+          var encrypted = CryptoJS.AES.encrypt(password, key, { iv });
+          password = encrypted.toString(); //返回的是base64格式的密文（后端要与之匹配）
+          console.log("加密后：", password);
+          this.$axios
+            .post("http://193.112.60.97:19011/reg", { username, password })
+            .then(({ data }) => {
+              console.log(data);
+              // this.$router.replace("/login");
+            });
+        } else {
+          // console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }
   }
 };
 </script>
-   
-<style lang="scss">
-.login-page {
-  .el-header {
-    padding: 0;
-    text-align: center;
-    .el-row {
-      text-align: center;
-      color: #000;
-      font-size: 0.17rem;
-      line-height: 0.44rem;
-      height: 0.44rem;
-      //   padding: 0 0.44rem;
-      border-bottom: 1px solid #f2f2f2;
-      box-sizing: border-box;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      display: block;
-      overflow: hidden;
-    }
-  }
-  .el-main {
-    padding: 0;
-    text-align: center;
-
-    .el-row {
-      margin: 0.1rem;
-      // border-bottom: 1px solid #ccc;
-
-      .el-col-12 {
-        line-height: 0.44rem;
-        font-size: 0.14rem;
-        .active {
-          background-color: #f2f2f2;
-        }
-      }
-    }
-    
-    .el-form-item{
-      label.el-form-item__label{
-        width:.8rem;
-      }
-      .el-form-item__content{
-
-      }
-
-    }
-    // .myform {
-    //   padding: 0.1rem;
-    //   #username,
-    //   #password {
-    //     border: 0px;
-
-    //     &:focus {
-    //       outline: none;
-    //     }
-    //   }
-    // }
-    // .login__button {
-    //   .login__prompt {
-    //     font-size: 0.12rem;
-    //     color: #999;
-    //     line-height: 0.35rem;
-    //     text-align: left;
-    //     padding-left: 0.19rem;
-    //   }
-    //   .all_btn_green {
-    //     background: #ddd;
-    //     color: #fff;
-    //     width: 98%;
-    //     line-height: 0.44rem;
-    //     display: block;
-    //     text-align: center;
-    //     font-size: 0.16rem;
-    //     border-radius: 0.04rem;
-    //     margin: 0 auto;
-    //   }
-    // }
-  }
-}
-</style>

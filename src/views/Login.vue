@@ -1,31 +1,27 @@
-
 <template>
   <el-tabs type="border-card">
-    <el-tab-pane label="注册">
-      <!-- <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign"> -->
+    <el-tab-pane label="登录">
       <el-form
-        :model="ruleForm_reg"
+        :model="ruleForm_login"
         :rules="rules"
-        ref="ruleForm_reg"
+        ref="ruleForm_login"
         label-width="80px"
-        class="demo-ruleForm_reg"
+        class="demo-ruleForm_login"
       >
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="ruleForm_reg.username"></el-input>
+        <el-form-item label="用户名" prop="username_login">
+          <el-input v-model="ruleForm_login.username_login"></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="psw">
-          <el-input v-model="ruleForm_reg.psw"></el-input>
+        <el-form-item label="密码" prop="psw_login">
+          <el-input v-model="ruleForm_login.psw_login"></el-input>
         </el-form-item>
-        <el-form-item label="确认密码" prop="comfirmPsw">
-          <el-input v-model="ruleForm_reg.comfirmPsw"></el-input>
-        </el-form-item>
+
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm_reg')">提交</el-button>
-          <el-button @click="resetForm('ruleForm_reg')">重置</el-button>
+          <el-button type="primary" @click="submitForm_login('ruleForm_login')">提交</el-button>
         </el-form-item>
       </el-form>
     </el-tab-pane>
-    <el-tab-pane label="登陆">
+    <el-tab-pane label="注册">
+      <!-- <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign"> -->
       <el-form
         :model="ruleForm_reg"
         :rules="rules"
@@ -53,7 +49,6 @@
 
 <script>
 import CryptoJS from "crypto-js";
-
 export default {
   data() {
     // value为comfirm的值
@@ -66,7 +61,6 @@ export default {
         callback();
       }
     };
-
     // 向后端校验用户名是否存在
     let checkUsername = (rule, value, callback) => {
       this.$axios
@@ -85,12 +79,35 @@ export default {
         });
     };
     return {
+      ruleForm_login: {
+        username_login: "",
+        psw_login: ""
+      },
       ruleForm_reg: {
         username: "",
         psw: "",
         comfirmPsw: ""
       },
       rules: {
+        username_login: [
+          // { validator: validatePass, trigger: 'blur' },
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          {
+            min: 6,
+            max: 11,
+            message: "用户名长度在 6 到 11 个字符",
+            trigger: "blur"
+          }
+        ],
+        psw_login: [
+          { required: true, message: "请输入密码 ", trigger: "blur" },
+          {
+            min: 6,
+            max: 11,
+            message: "密码长度在 6 到 11 个字符",
+            trigger: "blur"
+          }
+        ],
         username: [
           // { validator: validatePass, trigger: 'blur' },
           { required: true, message: "请输入用户名", trigger: "blur" },
@@ -121,24 +138,65 @@ export default {
     };
   },
   methods: {
-    submitForm(formName) {
+    submitForm_login(formName) {
+      this.$refs[formName].validate(valid => {
+        // console.log(valid);
+        if (valid) {
+          //通过前端验证，向后端发起请求，校验用户名和密码是否正确
+          // this.$message("登录成功");
+
+          let {
+            username_login,
+            psw_login: password_login
+          } = this.ruleForm_login;
+
+          /* eslint-disable */
+          console.log("加密前2：", password_login);
+          // 对password_login进行加密
+          let key = "laoxie1234567890"; //密钥
+          let iv = "laoxielaoxie6666"; //初始向量
+          key = CryptoJS.enc.Utf8.parse(key);
+          iv = CryptoJS.enc.Utf8.parse(iv);
+          var encrypted = CryptoJS.AES.encrypt(password_login, key, { iv });
+          password_login = encrypted.toString(); //返回的是base64格式的密文（后端要与之匹配）
+          /* eslint-disable */
+          console.log("加密后2：", password_login);
+
+          let params = {
+            username: username_login,
+            password: password_login
+          };
+          this.$axios
+            .get("http://193.112.60.97:19011/login", {
+              params
+            })
+            .then(data => {
+              /* eslint-disable */
+              console.log("data", data);
+              // this.$router.replace("/login");
+            });
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+
+     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         // console.log(valid);
         if (valid) {
           this.$message("注册成功");
           let { username, psw: password } = this.ruleForm_reg;
-
           console.log("加密前：", password);
           // 对password进行加密
           let key = "laoxie1234567890"; //密钥
           let iv = "laoxielaoxie6666"; //初始向量
-
           key = CryptoJS.enc.Utf8.parse(key);
           iv = CryptoJS.enc.Utf8.parse(iv);
           var encrypted = CryptoJS.AES.encrypt(password, key, { iv });
           password = encrypted.toString(); //返回的是base64格式的密文（后端要与之匹配）
           console.log("加密后：", password);
-
           this.$axios
             .post("http://193.112.60.97:19011/reg", { username, password })
             .then(({ data }) => {
