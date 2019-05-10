@@ -33,88 +33,54 @@
         </div>
       </el-main>
       <el-col>
-        <div class="cart-list">
+
+        <div class="cart-list" style="background:#efefef;" v-for="item in goods" :key="item.goodsNum">
           <div class="cart-title">
-            <el-checkbox class="allCheck">冷链配送</el-checkbox>
+            <el-checkbox class="allCheck">{{item.promotionsTags}}</el-checkbox>
             <span>包邮</span>
           </div>
           <el-row :gutter="20" class="cart-content">
             <el-col :span="2">
               <el-checkbox class="unitCheck"></el-checkbox>
             </el-col>
-            <el-col :span="6" class="goodstu">
-              <img src="../img/hui.png">
+            <el-col :span="7" class="goodstu">
+              <img :src="item.imageUrl" style="width:100%">
             </el-col>
-            <el-col :span="16">
-              <h4 class="name">台湾茂谷柑1kg装</h4>
+            <el-col :span="15">
+              <h4 class="name">{{item.productName}}</h4>
               <p class="price">
-                <span>￥36.9</span>
-                <el-input-number :min="1" :max="5" label="数量" size="mini">2</el-input-number>
+                <span>￥{{item.proPrice}}</span>
+                <el-input-number :min="1" :max="5" label="数量" size="mini" :value="item.qty"></el-input-number>
               </p>
             </el-col>
           </el-row>
         </div>
+
       </el-col>
       <el-col>
         <div class="recommend">
           一
           <span>为你推荐</span>一
         </div>
+
         <div class="cartTab">
-          <ul>
-            <li>
-              <img src="../img/cart-tu.png" alt>
-              <p>海南龙眼 1kg装</p>
+          <ul style="padding-bottom:0.5rem;">
+            <li v-for="item in tuijian" :key="item.goodsNum">
+              <img :src="item.imageUrl" alt>
+              <p>{{item.productName}}</p>
               <div class="price">
                 <p>
-                  <span>￥42.8</span>
+                  <span>￥{{item.price.price}}</span>
                 </p>
-                <del>￥69.8</del>
+                <del>￥{{item.price.origPrice}}</del>
                 <i>
                   <img src="../img/cart_icon.png" alt>
                 </i>
               </div>
             </li>
-            <li>
-              <img src="../img/cart-tu.png" alt>
-              <p>海南龙眼 1kg装</p>
-              <div class="price">
-                <p>
-                  <span>￥42.8</span>
-                </p>
-                <del>￥69.8</del>
-                <i>
-                  <img src="../img/cart_icon.png" alt>
-                </i>
-              </div>
-            </li>
-            <li>
-              <img src="../img/cart-tu.png" alt>
-              <p>海南龙眼 1kg装</p>
-              <div class="price">
-                <p>
-                  <span>￥42.8</span>
-                </p>
-                <del>￥69.8</del>
-                <i>
-                  <img src="../img/cart_icon.png" alt>
-                </i>
-              </div>
-            </li>
-            <li>
-              <img src="../img/cart-tu.png" alt>
-              <p>海南龙眼 1kg装</p>
-              <div class="price">
-                <p>
-                  <span>￥42.8</span>
-                </p>
-                <del>￥69.8</del>
-                <i>
-                  <img src="../img/cart_icon.png" alt>
-                </i>
-              </div>
-            </li>
+            
           </ul>
+
           <el-footer class="payFooter">
             <el-row :gutter="10">
               <el-col :span="12">
@@ -135,13 +101,52 @@
             </el-row>
           </el-footer>
         </div>
+
       </el-col>
     </el-container>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      goods: null,
+      tuijian:null
+    };
+  },
+  created(){
+    let aa = JSON.parse( localStorage.getItem("cartData"));
+    let bb = []
+    
+    for(var i=0;i<aa.length;i++){
+      
+      bb[i] = aa[i];
+      bb[i].promotionsTags = aa[i].promotionsTags[0][0]
+    }
+    this.goods = bb;
+    console.log(this.goods)
+    let type = this.goods[0].type;
+
+    //请求数据渲染推荐商品
+    this.$axios
+      .get("http://193.112.60.97:19011/goodslist", {
+        params: {
+          type
+        }
+      })
+      .then(res => {
+        let { data } = res;
+        this.tuijian = data;
+        console.log(this.tuijian);
+                console.log("this.$store=",this.$store
+);
+
+        this.$store
+      });
+    
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -286,11 +291,13 @@ export default {};
       }
     }
     .payFooter {
-      // width:100%;
-      // height:0.8rem;
-      // position:fixed;
-      // right:0;
-      // bottom:0;
+      width: 100%;
+      height: 0.8rem;
+      position: fixed;
+      z-index: 100;
+      right: 0;
+      bottom: 0;
+      background: #fff;
       .all {
         padding: 0.16rem 0 0.16rem 0.08rem;
       }
