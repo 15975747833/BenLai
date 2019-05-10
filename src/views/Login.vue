@@ -1,132 +1,105 @@
-<template>
-  <el-container class="login-page">
-    <el-header style="height:0.44rem">
-      <el-row :gutter="20">
-        <el-col :span="4">
-          <div class="grid-content bg-purple">&lt;</div>
-        </el-col>
-        <el-col :span="16">
-          <div class="grid-content bg-purple">登陆</div>
-        </el-col>
-        <el-col :span="4">
-          <div class="grid-content bg-purple"></div>
-        </el-col>
-      </el-row>
-    </el-header>
-    <el-main>
-      <el-row>
-        <el-col :span="12">
-          <div class="grid-content bg-purple active">手机快捷登陆</div>
-        </el-col>
-        <el-col :span="12">
-          <div class="grid-content bg-purple-light">账号密码登陆</div>
-        </el-col>
-      </el-row>
-      <div class="myform">
-        <el-row :gutter="20">
-          <el-col :span="16">
-            <div class="grid-content bg-purple">
-              <el-input placeholder="请选择日期" id="username" style="border:0;" v-model="keyword">
-                <i slot="prefix" class="el-input__icon el-icon-search"></i>
-              </el-input>
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <div class="grid-content bg-purple">
-              <el-button>默认按钮</el-button>
-            </div>
-          </el-col>
-        </el-row>
 
-        <el-input placeholder="请选择日期" id="password">
-          <i slot="prefix" class="el-input__icon el-icon-search"></i>
-        </el-input>
-      </div>
-      <div class="login__button">
-        <p class="login__prompt">未注册过的手机将自动保存为本来账户</p>
-        <a href="#" class="all_btn_green all_btn_xl all_btn_gray" id="fastLoginBt">登录</a>
-      </div>
-    </el-main>
-  </el-container>
+<template>
+<div>
+<div class="reg">
+  <h1>
+    ddd 
+  </h1>
+  <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+  <el-form-item label="密码" prop="pass">
+    <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+  </el-form-item>
+  <el-form-item label="确认密码" prop="checkPass">
+    <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+  </el-form-item>
+  <el-form-item label="年龄" prop="age">
+    <el-input v-model.number="ruleForm.age"></el-input>
+  </el-form-item>
+  <el-form-item>
+    <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+    <el-button @click="resetForm('ruleForm')">重置</el-button>
+  </el-form-item>
+</el-form>
+</div>
+<div class="login">
+
+</div>
+
+
+</div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      keyword: ""
-    };
+  export default {
+    data() {
+      var checkAge = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('年龄不能为空'));
+        }
+        setTimeout(() => {
+          if (!Number.isInteger(value)) {
+            callback(new Error('请输入数字值'));
+          } else {
+            if (value < 18) {
+              callback(new Error('必须年满18岁'));
+            } else {
+              callback();
+            }
+          }
+        }, 1000);
+      };
+      var validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入密码'));
+        } else {
+          if (this.ruleForm.checkPass !== '') {
+            this.$refs.ruleForm.validateField('checkPass');
+          }
+          callback();
+        }
+      };
+      var validatePass2 = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.ruleForm.pass) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
+      return {
+        ruleForm: {
+          pass: '',
+          checkPass: '',
+          age: ''
+        },
+        rules: {
+          pass: [
+            { validator: validatePass, trigger: 'blur' }
+          ],
+          checkPass: [
+            { validator: validatePass2, trigger: 'blur' }
+          ],
+          age: [
+            { validator: checkAge, trigger: 'blur' }
+          ]
+        }
+      };
+    },
+    methods: {
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
+    }
   }
-};
 </script>
-   
-<style lang="scss">
-.login-page {
-  .el-header {
-    padding: 0;
-    text-align: center;
-    .el-row {
-      text-align: center;
-      color: #000;
-      font-size: 0.17rem;
-      line-height: 0.44rem;
-      height: 0.44rem;
-      //   padding: 0 0.44rem;
-      border-bottom: 1px solid #f2f2f2;
-      box-sizing: border-box;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      display: block;
-      overflow: hidden;
-    }
-  }
-  .el-main {
-    padding: 0;
-    text-align: center;
-
-    .el-row {
-      margin: 0.1rem;
-      // border-bottom: 1px solid #ccc;
-
-      .el-col-12 {
-        line-height: 0.44rem;
-        font-size: 0.14rem;
-        .active {
-          background-color: #f2f2f2;
-        }
-      }
-    }
-    .myform {
-      padding: 0.1rem;
-      #username,
-      #password {
-        border: 0px;
-
-        &:focus {
-          outline: none;
-        }
-      }
-    }
-    .login__button {
-      .login__prompt {
-        font-size: 0.12rem;
-        color: #999;
-        line-height: 0.35rem;
-        text-align: left;
-        padding-left: 0.19rem;
-      }
-      .all_btn_green {
-        background: #ddd;
-        color: #fff;
-        width: 98%;
-        line-height: 0.44rem;
-        display: block;
-        text-align: center;
-        font-size: 0.16rem;
-        border-radius: 0.04rem;
-        margin:0 auto;
-      }
-    }
-  }
-}
-</style>

@@ -66,7 +66,7 @@
                 <el-row>
                   <el-col>
                     <div
-                      class="grid-content bg-purple dd-item"
+                      class="grid-content bg-purple dd-item" @click="gotolist(item)"
                       v-for="item in child"
                       :key="item._id"
                     >
@@ -164,6 +164,10 @@ export default {
     },
     goto(path) {
       this.$router.push(path);
+    },
+    // 向列表页跳转函数，将type传到列表页
+    gotolist(goods){
+      this.$router.push({name:'List',params:{type:goods.type}})
     }
   }
 };
