@@ -62,11 +62,6 @@
     </div>
     <div id="main">
       <div class="banner">
-        <!-- <el-carousel indicator-position="outside" class="lbt">
-          <el-carousel-item v-for="item in imgs" :key="item.id">
-            <img :src="item.img">
-          </el-carousel-item>
-        </el-carousel>-->
         <el-carousel class="lbt">
           <el-carousel-item v-for="item in imgs" :key="item.id">
             <div class="lbt-item">

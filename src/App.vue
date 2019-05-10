@@ -27,7 +27,6 @@
       </el-footer>
   </div>
 </template>
-
 <script>
 import Vue from "vue";
 import ElementUI from "element-ui";
@@ -35,14 +34,12 @@ import "element-ui/lib/theme-chalk/index.css";
 
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
+
 Vue.use(ElementUI);
 Vue.use(MintUI);
-
 export default {
   data() {
-    return{
-        imgs:['img/jingjing.jpg','img/laoxie.jpg','img/lemon.jpg','img/laoyao.jpg','img/malin.jpg','img/tiantian.jpg','img/tingting.jpg']
-      }
+    return {};
   },
   methods: {
     goto(path) {
@@ -68,7 +65,6 @@ body {
     background: #fff;
     bottom: 0;
     width: 100%;
-
     border-top: 1px solid #ccc;
     display: flex;
     flex-direction: row;

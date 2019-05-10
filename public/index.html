@@ -3,33 +3,41 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" >
+    <!-- 引入base样式 -->
   <link rel="stylesheet" href="css/base.css">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title>benlai</title>
   <script>
-    // var wd = document.documentElement.clientWidth * window.devicePixelRatio / 10;
-    // document.getElementsByTagName("html")[0].style.fontSize = wd + "px";
-    // var scale = 1 / window.devicePixelRatio;
-    // var mstr = 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no';
+    // var wd = document.documentElement.clientWidth*window.devicePixelRatio/10;
+		// document.getElementsByTagName("html")[0].style.fontSize = wd + "px";//给不同设备的html设置不同的字体大小
+		// var scale = 1/window.devicePixelRatio;
+		// //获取缩放比。
+		// // 1/设备像素比dpr = 缩放比
+		// var mstr = 'initial-scale='+ scale +', maximum-scale='+ scale +', minimum-scale='+ scale +', user-scalable=no';
     // document.getElementById("vp").content = mstr;
-
-    (function () {
-      //获取html元素
-      var html = document.getElementsByTagName('html')[0];
-      //屏幕的宽度（兼容处理）
-      var width = document.documentElement.clientWidth || document.body.clientWidth;
-      //375这个数字是根据你的设计图的实际大小来的，所以值具体根据设计图的大小,根据苹果6的尺寸布局设计
-      html.style.fontSize = width / 375 * 50 * 2 + 'px';
+    
+    (function() {
+        //获取html元素
+        var html = document.getElementsByTagName('html')[0];
+        //屏幕的宽度（兼容处理）
+        var width = document.documentElement.clientWidth || document.body.clientWidth;
+        //375这个数字是根据你的设计图的实际大小来的，所以值具体根据设计图的大小,根据苹果6的尺寸布局设计
+        html.style.fontSize = width / 375 * 50 * 2 + 'px';
     })()
   </script>
-  <title>benlai</title>
 </head>
 
 <body>
   <noscript>
-      <strong>We're sorry but benlai doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
+    <strong>We're sorry but benlai doesn't work properly without JavaScript enabled. Please enable it to
+      continue.</strong>
+  </noscript>
   <div id="app"></div>
+  <!-- built files will be auto injected -->
 </body>
 
 </html>
