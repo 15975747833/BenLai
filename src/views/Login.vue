@@ -1,105 +1,118 @@
 
 <template>
-<div>
-<div class="reg">
-  <h1>
-    ddd 
-  </h1>
-  <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-  <el-form-item label="密码" prop="pass">
-    <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
-  </el-form-item>
-  <el-form-item label="确认密码" prop="checkPass">
-    <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-  </el-form-item>
-  <el-form-item label="年龄" prop="age">
-    <el-input v-model.number="ruleForm.age"></el-input>
-  </el-form-item>
-  <el-form-item>
-    <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-    <el-button @click="resetForm('ruleForm')">重置</el-button>
-  </el-form-item>
-</el-form>
-</div>
-<div class="login">
-
-</div>
-
-
-</div>
+  <el-tabs type="border-card">
+    <el-tab-pane label="注册">
+      <!-- <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign"> -->
+      <el-form
+        :model="ruleForm"
+        :rules="rules"
+        ref="ruleForm"
+        label-width="80px"
+        class="demo-ruleForm"
+      >
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="ruleForm.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="psw">
+          <el-input v-model="ruleForm.psw"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="comfirmPsw">
+          <el-input v-model="ruleForm.comfirmPsw"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+          <el-button @click="resetForm('ruleForm')">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </el-tab-pane>
+    <el-tab-pane label="登陆">配置管理</el-tab-pane>
+  </el-tabs>
 </template>
 
 <script>
-  export default {
-    data() {
-      var checkAge = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('年龄不能为空'));
-        }
-        setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
-          } else {
-            if (value < 18) {
-              callback(new Error('必须年满18岁'));
-            } else {
-              callback();
-            }
-          }
-        }, 1000);
-      };
-      var validatePass = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请输入密码'));
-        } else {
-          if (this.ruleForm.checkPass !== '') {
-            this.$refs.ruleForm.validateField('checkPass');
-          }
-          callback();
-        }
-      };
-      var validatePass2 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请再次输入密码'));
-        } else if (value !== this.ruleForm.pass) {
-          callback(new Error('两次输入密码不一致!'));
-        } else {
-          callback();
-        }
-      };
-      return {
-        ruleForm: {
-          pass: '',
-          checkPass: '',
-          age: ''
-        },
-        rules: {
-          pass: [
-            { validator: validatePass, trigger: 'blur' }
-          ],
-          checkPass: [
-            { validator: validatePass2, trigger: 'blur' }
-          ],
-          age: [
-            { validator: checkAge, trigger: 'blur' }
-          ]
-        }
-      };
-    },
-    methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
+export default {
+  data() {
+    // value为comfirm的值
+    let checkPsw = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
+      } else if (value !== this.ruleForm.psw) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
       }
+    };
+
+    // 向后端校验用户名是否存在
+    let checkUsername = (rule, value, callback) => {
+      this.axios
+        .get("http://193.112.60.97:19011/reg/check", {
+          params: {
+            username: value
+          }
+        })
+        .then(res => {
+          console.log("reg", res);
+        });
+      // if (value === "") {
+      //   callback(new Error("请再次输入密码"));
+      // } else if (value !== this.ruleForm.psw) {
+      //   callback(new Error("两次输入密码不一致!"));
+      // } else {
+      //   callback();
+      // }
+    };
+    return {
+      ruleForm: {
+        username: "",
+        psw: "",
+        comfirmPsw: ""
+      },
+      rules: {
+        username: [
+          // { validator: validatePass, trigger: 'blur' },
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          {
+            min: 6,
+            max: 11,
+            message: "长度在 6 到 11 个字符",
+            trigger: "blur"
+          },
+          // 用户名虚焦时，向后端发起请求用户名是否重复
+          {
+            validator: checkUsername,
+            trigger: "blur"
+          }
+        ],
+        psw: [
+          { required: true, message: "请输入密码 ", trigger: "blur" },
+          { min: 6, max: 11, message: "长度在 6 到 11 个字符", trigger: "blur" }
+        ],
+        comfirmPsw: [
+          { required: true, message: "请再次输入密码 ", trigger: "blur" },
+          {
+            validator: checkPsw,
+            trigger: "blur"
+          }
+        ]
+      }
+    };
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate(valid => {
+        console.log(valid);
+        if (valid) {
+          this.$message("注册成功");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
     }
   }
+};
 </script>
