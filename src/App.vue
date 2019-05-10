@@ -32,8 +32,8 @@ import Vue from "vue";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 
-import MintUI from 'mint-ui'
-import 'mint-ui/lib/style.css'
+import MintUI from "mint-ui";
+import "mint-ui/lib/style.css";
 
 Vue.use(ElementUI);
 Vue.use(MintUI);
@@ -59,7 +59,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-    #footer{
+  #footer {
     overflow: hidden;
     width: 100%;
     position: fixed;
@@ -82,9 +82,6 @@ body {
             font: 400 0.1rem/0.14rem "黑体";
         }
     }
-}
-    
   }
-
-  
+}
 </style>

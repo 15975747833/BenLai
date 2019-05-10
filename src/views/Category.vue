@@ -5,7 +5,10 @@
         <el-row>
           <el-col :span="6">
             <div class="grid-content bg-purple" @click="goto('/Address')">
-              <a href="#" class="city">佛山</a>
+              <a href="#" class="city">
+                佛山
+                <i class="el-icon-arrow-down"></i>
+              </a>
             </div>
           </el-col>
           <el-col :span="18">
@@ -22,11 +25,23 @@
         <el-container>
           <!-- left -->
           <el-aside width="25%">
-            <el-menu class="el-menu-vertical-demo">
-              <el-menu-item v-for="item in menu" :key="item._id" @click="getData(item.name)">
+            <el-menu class="el-menu-vertical-demo" >
+              <el-menu-item v-for="item in menu" :key="item._id" @click="getData(item.name)" text-color="#333">
                 <span slot="title">{{item.name}}</span>
               </el-menu-item>
             </el-menu>
+            <!-- 原生结构 start -->
+            <!-- <ul class="main_l">
+              <li
+                v-for="item in menu"
+                :key="item._id"
+                @click="getData(item.name)"
+                ref="main_li"
+              >
+                <span>{{item.name}}</span>
+              </li>
+            </ul> -->
+             <!-- 原生结构 end -->
           </el-aside>
           <!-- right -->
           <el-main class="main_r">
@@ -49,10 +64,11 @@
               </dt>
               <dd>
                 <el-row>
-                  <el-col >
+                  <el-col>
                     <div
-                      class="grid-content bg-purple dd-item"
-                      v-for="item in child" :key="item._id" 
+                      class="grid-content bg-purple dd-item" @click="gotolist(item)"
+                      v-for="item in child"
+                      :key="item._id"
                     >
                       <a href="#">
                         <img
@@ -91,7 +107,7 @@ export default {
       menu: [],
       datalist: [],
       typetitle: "",
-      subclass:[]
+      subclass: []
     };
   },
   created() {
@@ -103,52 +119,55 @@ export default {
   },
   methods: {
     getData(name) {
-      this.subclass=[],
-      this.$axios
-        .get("http://193.112.60.97:19011/goodslist", {
-          params: {
-            category: name,
-            hotsale: true
-          }
-        })
-        .then(({ data }) => {
-          this.datalist = data;
-          this.typetitle = this.datalist[0].typetitle;
-          // 点击menu 把当前category保存下来
-          this.currentCategory = name;
-          console.log("origin",this.datalist);
+      (this.subclass = []),
+        this.$axios
+          .get("http://193.112.60.97:19011/goodslist", {
+            params: {
+              category: name,
+              hotsale: true
+            }
+          })
+          .then(({ data }) => {
+            this.datalist = data;
+            this.typetitle = this.datalist[0].typetitle;
+            // 点击menu 把当前category保存下来
+            this.currentCategory = name;
+            // console.log("origin",this.datalist);
 
-          // 把data中的typetitle种类保存下来,得到种类为typetitle的数据 过滤出data中含有typetitle的数据
-          let peon = de_duplication(this.datalist);
-          console.log("peon", peon);
+            // 把data中的typetitle种类保存下来,得到种类为typetitle的数据 过滤出data中含有typetitle的数据
+            let peon = de_duplication(this.datalist);
+            // console.log("peon", peon);
 
-          function de_duplication(arr) {
-            let obj = {};
-            let peon = arr.reduce((cur, next) => {
-              obj[next.typetitle]
-                ? ""
-                : (obj[next.typetitle] = true && cur.push(next));
-              return cur;
-            }, []); //设置cur默认类型为数组，并且初始值为空的数组
-            //获取总类的数组--单独
-            return peon.map(item => item.typetitle);
-          }
+            function de_duplication(arr) {
+              let obj = {};
+              let peon = arr.reduce((cur, next) => {
+                obj[next.typetitle]
+                  ? ""
+                  : (obj[next.typetitle] = true && cur.push(next));
+                return cur;
+              }, []); //设置cur默认类型为数组，并且初始值为空的数组
+              //获取总类的数组--单独
+              return peon.map(item => item.typetitle);
+            }
 
-          // filter 出datalist里面typetitle属性的数据
-          for (let i = 0; i < peon.length; i++) {
-            let aa = []
-            aa = this.datalist.filter(item => item.typetitle == peon[i]);
-            // console.log('分类后',this.subclass);
-            // console.log("aa=",aa)
-            this.subclass.push(aa)
-          }
-          console.log("this.subclass=",this.subclass)
-
-
-        });
+            // filter 出datalist里面typetitle属性的数据
+            for (let i = 0; i < peon.length; i++) {
+              let aa = [];
+              aa = this.datalist.filter(item => item.typetitle == peon[i]);
+              // console.log('分类后',this.subclass);
+              // console.log("aa=",aa)
+              this.subclass.push(aa);
+            }
+            // console.log("this.subclass=",this.subclass)
+          });
+          
     },
-    goto(path){
+    goto(path) {
       this.$router.push(path);
+    },
+    // 向列表页跳转函数，将type传到列表页
+    gotolist(goods){
+      this.$router.push({name:'List',params:{type:goods.type}})
     }
   }
 };
@@ -168,10 +187,16 @@ export default {
   .el-row {
     .el-col {
       a.city {
-        padding: 0rem 0.28rem 0rem 0.15rem;
+        padding: 0rem 0.28rem 0rem 0rem;
         background-size: 0.23rem 5.37rem;
         color: #333;
         display: block;
+        position: relative;
+        i {
+          position: absolute;
+          top: 0.14rem;
+          right: 0.18rem;
+        }
       }
       .el-input {
         input {
@@ -198,28 +223,70 @@ export default {
 .el-main {
   padding: 0;
   margin: 0.44rem 0rem 0.49rem;
-  .cate_left {
-    // overflow-y: auto;
-    overflow-x: hidden;
-  }
+  background: #f9f9fb;
 
-  .categoryMore {
-    width: 100%;
-    height: 100%;
-    li {
-      float: left;
-      width: 100%;
-      padding: 0.15rem 0rem;
-      text-align: center;
-      position: relative;
-      z-index: 0;
-      a {
-        border-left: 0.02rem solid #9dd300;
-        color: #9dd300;
-        display: block;
+  .el-aside {
+    .main_l {
+      overflow-y: auto;
+      li {
+        float: left;
+        background: #fff;
+        width: 100%;
+        text-align: center;
+        padding: 0.15rem 0rem;
+        &:active {
+          color: #9dd300;
+          span {
+            border-left: 0.02rem solid #9dd300;
+          }
+        }
+        // border-bottom:1px solid #ccc;
+        span {
+          // border-left: 0.02rem solid #9dd300;
+          color: #333;
+          line-height: 0.2rem;
+          padding-right: 0.02rem;
+          font-size: 0.14rem;
+          display: block;
+          position: relative;
+          &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            left: -50%;
+            bottom: -0.16rem;
+            width: 200%;
+            height: 1px;
+            background: #ddd;
+            -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+          }
+        }
       }
     }
   }
+  // .cate_left {
+  //   // overflow-y: auto;
+  //   overflow-x: hidden;
+  // }
+
+  // .categoryMore {
+  //   width: 100%;
+  //   height: 100%;
+  //   li {
+  //     float: left;
+  //     width: 100%;
+  //     padding: 0.15rem 0rem;
+  //     text-align: center;
+  //     position: relative;
+  //     z-index: 0;
+  //     a {
+  //       border-left: 0.02rem solid #9dd300;
+  //       color: #9dd300;
+  //       display: block;
+  //     }
+  //   }
+  // }
   .main_r {
     margin-top: 0;
     padding: 0 0.1rem;
