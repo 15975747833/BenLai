@@ -58,169 +58,18 @@
       </div>
 
       <ul class="tab2">
-        <li>
-          <img
-            src="//image5.benlailife.com/Customer/GradeIcon/8d35e656-583f-4ff0-a0f7-28f3b2452bf3_n-n.png?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image1.benlailife.com/Customer/GradeIcon/8b68139f-8350-4f49-bd46-77089c64a1f1_n-n.png?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image2.benlailife.com/Customer/GradeIcon/b72bf52d-94d8-4143-ac7c-4116ddea3189_n-n.png?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image7.benlailife.com/Customer/GradeIcon/c8a5d307-c009-46c1-a52d-f8a9a957782a_n-n.png?imageView2/2/w/1035/format/webp"
-          >
+        <li v-for="item in tab2" :key="item.id">
+          <img :src="item.img">
         </li>
       </ul>
       <ul class="tabhui">
-        <li>
-          <img
-            src="//image3.benlailife.com/Customer/GradeIcon/cc4ed212-bf0f-496f-b72e-2d09cfd44514_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image7.benlailife.com/Customer/GradeIcon/a52ab09f-f52c-43d3-87ce-cba914c8b4d9_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image1.benlailife.com/Customer/GradeIcon/fabbf791-372b-4fd2-a99c-fc4a315d484b_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image3.benlailife.com/Customer/GradeIcon/dbdc93b9-eaf9-4da5-8c93-bbbb96e9bf99_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image3.benlailife.com/Customer/GradeIcon/ce4ac7ec-cec9-41ea-aa89-62d17b2de8f5_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image4.benlailife.com/Customer/GradeIcon/5a050612-56d2-417e-9873-647a27896bfc_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image3.benlailife.com/Customer/GradeIcon/5e37b680-2fe7-4a96-aafe-f24306bd5a0c_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image6.benlailife.com/Customer/GradeIcon/ce0ee138-f34a-4c1d-9da3-ec0ecba74539_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image3.benlailife.com/Customer/GradeIcon/ec14d993-815e-4de0-a649-ee14c5801362_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image4.benlailife.com/Customer/GradeIcon/f70a33b6-80a4-400e-9384-2484dbf0bcfc_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image1.benlailife.com/Customer/GradeIcon/ae069414-87dd-4aa2-b4ab-11b193980c35_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image4.benlailife.com/Customer/GradeIcon/97df1dd6-e860-49d1-bbb0-06053668e2a0_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
+        <li v-for="item in tabhui" :key="item.id">
+          <img :src="item.img">
         </li>
       </ul>
       <ul class="tab3">
-        <li>
-          <img
-            src="//image3.benlailife.com/AppHomePageImage/c55c0d2348cc435b861484cb74fa6fa0_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image.benlailife.com/AppHomePageImage/a518d9e1ef9b435a8eab9190f1fe06a0_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image4.benlailife.com/AppHomePageImage/3a94848225c642999add1dd25dfa2a3c_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image6.benlailife.com/AppHomePageImage/ef952cedceef4ff288938f3226845164_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image5.benlailife.com/AppHomePageImage/cb49723be0ff448ba58a401cff9e3622_n-n.gif?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image5.benlailife.com/AppHomePageImage/2be4ac1b900341f9a749864565aed296_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image4.benlailife.com/AppHomePageImage/a982503bd26d4452be76446209022bb6_n-n.gif?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image2.benlailife.com/AppHomePageImage/263e75d8c55a4791884db6a187138f05_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image6.benlailife.com/AppHomePageImage/2cff1d34f22641449e37b12b86951b02_n-n.gif?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image3.benlailife.com/AppHomePageImage/61aefb753f274ebf86e9566464e9bcb8_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image4.benlailife.com/AppHomePageImage/823e0b475086497fab2c1d8ae144dccf_n-n.gif?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image5.benlailife.com/AppHomePageImage/6b477752d0ad4c31aad7e92cfc9a7c2f_n-n.gif?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image7.benlailife.com/AppHomePageImage/b0ced95803ac4cd29fdcfd2356221617_n-n.gif?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image.benlailife.com/AppHomePageImage/c6585aa481564d62b5914d242ef6f929_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image5.benlailife.com/AppHomePageImage/405afe43c5384256b8f8de4a996daf05_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
-        </li>
-        <li>
-          <img
-            src="//image7.benlailife.com/AppHomePageImage/9f0903823113422b81f49a685b65c2b5_n-n.jpg?imageView2/2/w/1035/format/webp"
-          >
+        <li v-for="item in tab3" :key="item.id">
+          <img :src="item.img">
         </li>
       </ul>
     </div>
@@ -258,8 +107,180 @@ export default {
           img:
             "https://image4.benlailife.com/AppHomePageImage/ff3697e109fd4502a6c88a369b7e2159_n-n.jpg?imageView2/2/w/1035/format/webp"
         }
+      ],
+      tab2: [
+        {
+          id: 1,
+          img:
+            "//image5.benlailife.com/Customer/GradeIcon/8d35e656-583f-4ff0-a0f7-28f3b2452bf3_n-n.png?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 2,
+          img:
+            "//image1.benlailife.com/Customer/GradeIcon/8b68139f-8350-4f49-bd46-77089c64a1f1_n-n.png?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 3,
+          img:
+            "//image2.benlailife.com/Customer/GradeIcon/b72bf52d-94d8-4143-ac7c-4116ddea3189_n-n.png?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 4,
+          img:
+            "//image7.benlailife.com/Customer/GradeIcon/c8a5d307-c009-46c1-a52d-f8a9a957782a_n-n.png?imageView2/2/w/1035/format/webp"
+        }
+      ],
+      tabhui: [
+        {
+          id: 1,
+          img:
+            "//image3.benlailife.com/Customer/GradeIcon/cc4ed212-bf0f-496f-b72e-2d09cfd44514_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+
+        {
+          id: 2,
+          img:
+            "//image7.benlailife.com/Customer/GradeIcon/a52ab09f-f52c-43d3-87ce-cba914c8b4d9_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+
+        {
+          id: 3,
+          img:
+            "//image1.benlailife.com/Customer/GradeIcon/fabbf791-372b-4fd2-a99c-fc4a315d484b_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+
+        {
+          id: 4,
+          img:
+            "//image3.benlailife.com/Customer/GradeIcon/dbdc93b9-eaf9-4da5-8c93-bbbb96e9bf99_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+
+        {
+          id: 5,
+          img:
+            "//image3.benlailife.com/Customer/GradeIcon/ce4ac7ec-cec9-41ea-aa89-62d17b2de8f5_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+
+        {
+          id: 6,
+          img:
+            "//image4.benlailife.com/Customer/GradeIcon/5a050612-56d2-417e-9873-647a27896bfc_n-n.jpg?imageView2/2/w/1035/fo},rmat/webp"
+        },
+
+        {
+          id: 7,
+          img:
+            "//image3.benlailife.com/Customer/GradeIcon/5e37b680-2fe7-4a96-aafe-f24306bd5a0c_n-n.jpg?imageView2/2/w/1035/fo},rmat/webp"
+        },
+
+        {
+          id: 8,
+          img:
+            "//image6.benlailife.com/Customer/GradeIcon/ce0ee138-f34a-4c1d-9da3-ec0ecba74539_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 9,
+          img:
+            "//image3.benlailife.com/Customer/GradeIcon/ec14d993-815e-4de0-a649-ee14c5801362_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 10,
+          img:
+            "//image4.benlailife.com/Customer/GradeIcon/f70a33b6-80a4-400e-9384-2484dbf0bcfc_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 11,
+          img:
+            "//image1.benlailife.com/Customer/GradeIcon/ae069414-87dd-4aa2-b4ab-11b193980c35_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 12,
+          img:
+            "//image4.benlailife.com/Customer/GradeIcon/97df1dd6-e860-49d1-bbb0-06053668e2a0_n-n.jpg?imageView2/2/w/1035/fo},rmat/webp"
+        }
+      ],
+      tab3: [
+        {
+          id: 1,
+          img:
+            "//image3.benlailife.com/AppHomePageImage/c55c0d2348cc435b861484cb74fa6fa0_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 2,
+          img:
+            "//image.benlailife.com/AppHomePageImage/a518d9e1ef9b435a8eab9190f1fe06a0_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 3,
+          img:
+            "//image4.benlailife.com/AppHomePageImage/3a94848225c642999add1dd25dfa2a3c_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 4,
+          img:
+            "//image6.benlailife.com/AppHomePageImage/ef952cedceef4ff288938f3226845164_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 5,
+          img:
+            "//image5.benlailife.com/AppHomePageImage/cb49723be0ff448ba58a401cff9e3622_n-n.gif?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 6,
+          img:
+            "//image5.benlailife.com/AppHomePageImage/2be4ac1b900341f9a749864565aed296_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 7,
+          img:
+            "//image4.benlailife.com/AppHomePageImage/a982503bd26d4452be76446209022bb6_n-n.gif?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 8,
+          img:
+            "//image2.benlailife.com/AppHomePageImage/263e75d8c55a4791884db6a187138f05_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 9,
+          img:
+            "//image6.benlailife.com/AppHomePageImage/2cff1d34f22641449e37b12b86951b02_n-n.gif?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 10,
+          img:
+            "//image3.benlailife.com/AppHomePageImage/61aefb753f274ebf86e9566464e9bcb8_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 11,
+          img:
+            "//image4.benlailife.com/AppHomePageImage/823e0b475086497fab2c1d8ae144dccf_n-n.gif?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 12,
+          img:
+            "//image5.benlailife.com/AppHomePageImage/6b477752d0ad4c31aad7e92cfc9a7c2f_n-n.gif?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 13,
+          img:
+            "//image7.benlailife.com/AppHomePageImage/b0ced95803ac4cd29fdcfd2356221617_n-n.gif?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 14,
+          img:
+            "//image.benlailife.com/AppHomePageImage/c6585aa481564d62b5914d242ef6f929_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 15,
+          img:
+            "//image5.benlailife.com/AppHomePageImage/405afe43c5384256b8f8de4a996daf05_n-n.jpg?imageView2/2/w/1035/format/webp"
+        },
+        {
+          id: 16,
+          img:
+            "//image7.benlailife.com/AppHomePageImage/9f0903823113422b81f49a685b65c2b5_n-n.jpg?imageView2/2/w/1035/format/webp"
+        }
       ]
-      // imgs:['img/jingjing.jpg','img/laoxie.jpg','img/lemon.jpg','img/laoyao.jpg','img/malin.jpg','img/tiantian.jpg','img/tingting.jpg']
     };
   }
 };

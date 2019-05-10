@@ -39,7 +39,9 @@ Vue.use(ElementUI);
 Vue.use(MintUI);
 export default {
   data() {
-    return {};
+    return {
+
+    };
   },
   methods: {
     goto(path) {
