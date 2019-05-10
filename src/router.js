@@ -6,16 +6,17 @@ Vue.use(Router)
 
 import Home from './views/Home.vue';
 import Category from './views/Category.vue';
-// import Recharge from './views/Recharge.vue';
+
 import Cart from './views/Cart.vue';
 import My from './views/My.vue';
 import Login from './views/Login.vue';
+import List from './views/List.vue';
 
 import Search from './views/Search.vue';
 import Address from './views/Address.vue';
 
-import Footer from './components/Footer.vue'
-// console.log('footer',Footer);
+// import Footer from './components/Footer.vue'
+
 
 
 export default new Router({
@@ -28,10 +29,8 @@ export default new Router({
     {
       name: 'Home',
       path: '/home',
-      components: {
-        default: Home,
-        Footer
-      }
+      component: Home
+      
     },
     {
       name: 'Category',
@@ -63,6 +62,10 @@ export default new Router({
       name: 'Address',
       path: '/address',
       component: Address
+    },{
+      name: 'List',
+      path: '/list',
+      component: List
     }
   ]
 })
