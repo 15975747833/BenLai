@@ -1,6 +1,6 @@
 <template>
   <div class="login_reg">
-    <el-row type="flex" class="row-bg header" :stretch="true">
+    <el-row type="flex" class="row-bg header">
       <el-col :span="4">
         <div class="grid-content bg-purple">
           <i class="el-icon-arrow-left header-back"></i>
@@ -13,8 +13,8 @@
         <div class="grid-content bg-purple"></div>
       </el-col>
     </el-row>
-    <el-tabs type="border-card" stretch="true">
-      <el-tab-pane label="登录" >
+    <el-tabs type="border-card" :stretch="true">
+      <el-tab-pane label="登录">
         <el-form
           :model="ruleForm_login"
           :rules="rules"
@@ -34,7 +34,7 @@
           </el-form-item>
         </el-form>
       </el-tab-pane>
-      <el-tab-pane label="注册">
+      <el-tab-pane label="注册" :stretch="true">
         <!-- <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign"> -->
         <el-form
           :model="ruleForm_reg"
@@ -153,12 +153,11 @@ export default {
     };
   },
   methods: {
+    // 登陆提交按钮===========================
     submitForm_login(formName) {
       this.$refs[formName].validate(valid => {
-        // console.log(valid);
         if (valid) {
           //通过前端验证，向后端发起请求，校验用户名和密码是否正确
-          // this.$message("登录成功");
 
           let {
             username_login,
@@ -186,9 +185,20 @@ export default {
               params
             })
             .then(data => {
-              /* eslint-disable */
-              console.log("data", data);
-              // this.$router.replace("/login");
+              // 登陆成功将用户名和登陆状态存入localStorage---------------
+              localStorage.setItem('username',username_login)
+              localStorage.setItem('loginStatus',true)
+              this.$message("登录成功");
+              this.$router.push('/home');
+              // console.log(this.$route.query===null)
+              //如果从登陆页面直接进去，登陆后跳转到首页;从'登陆按钮'进去，登陆后跳到首页
+              
+              // if(this.$route.query){
+              //   this.$router.replace(this.$route.query.redirect);
+              // }else{
+              //   this.$router.replace('/hone');
+              // }
+              // this.$router.replace(this.$route.query.redirect);
             });
         } else {
           console.log("error submit!!");
@@ -196,14 +206,12 @@ export default {
         }
       });
     },
-
+    // 注册提交按钮==============================
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         // console.log(valid);
         if (valid) {
-          this.$message("注册成功");
           let { username, psw: password } = this.ruleForm_reg;
-          console.log("加密前：", password);
           // 对password进行加密
           let key = "laoxie1234567890"; //密钥
           let iv = "laoxielaoxie6666"; //初始向量
@@ -211,12 +219,18 @@ export default {
           iv = CryptoJS.enc.Utf8.parse(iv);
           var encrypted = CryptoJS.AES.encrypt(password, key, { iv });
           password = encrypted.toString(); //返回的是base64格式的密文（后端要与之匹配）
-          console.log("加密后：", password);
+          // 发起请求-向数据库存入数据
           this.$axios
             .post("http://193.112.60.97:19011/reg", { username, password })
             .then(({ data }) => {
-              console.log(data);
-              // this.$router.replace("/login");
+              this.$message("注册成功");
+               // 注册成功将用户名和登陆状态存入localStorage---------------
+              localStorage.setItem("username", username);
+              localStorage.setItem('loginStatus',true)
+              // 注册后跳到首页
+              this.$router.replace('/home');
+
+              // this.$router.replace(this.$route.params.redirect);
             });
         } else {
           // console.log("error submit!!");
@@ -224,13 +238,10 @@ export default {
         }
       });
     },
+    //注册页重置按钮===================
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    },
-     handleClick(tab, event) {
-        console.log(tab, event);
-      }
-
+    }
   }
 };
 </script>
