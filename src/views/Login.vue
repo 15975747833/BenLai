@@ -1,50 +1,65 @@
 <template>
-  <el-tabs type="border-card">
-    <el-tab-pane label="登录">
-      <el-form
-        :model="ruleForm_login"
-        :rules="rules"
-        ref="ruleForm_login"
-        label-width="80px"
-        class="demo-ruleForm_login"
-      >
-        <el-form-item label="用户名" prop="username_login">
-          <el-input v-model="ruleForm_login.username_login"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="psw_login">
-          <el-input v-model="ruleForm_login.psw_login"></el-input>
-        </el-form-item>
+  <div class="login_reg">
+    <el-row type="flex" class="row-bg header" :stretch="true">
+      <el-col :span="4">
+        <div class="grid-content bg-purple">
+          <i class="el-icon-arrow-left header-back"></i>
+        </div>
+      </el-col>
+      <el-col :span="16">
+        <div class="grid-content bg-purple-light header-text">登录</div>
+      </el-col>
+      <el-col :span="4">
+        <div class="grid-content bg-purple"></div>
+      </el-col>
+    </el-row>
+    <el-tabs type="border-card" stretch="true">
+      <el-tab-pane label="登录" >
+        <el-form
+          :model="ruleForm_login"
+          :rules="rules"
+          ref="ruleForm_login"
+          label-width="80px"
+          class="demo-ruleForm_login"
+        >
+          <el-form-item label="用户名" prop="username_login">
+            <el-input v-model="ruleForm_login.username_login"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="psw_login">
+            <el-input v-model="ruleForm_login.psw_login"></el-input>
+          </el-form-item>
 
-        <el-form-item>
-          <el-button type="primary" @click="submitForm_login('ruleForm_login')">提交</el-button>
-        </el-form-item>
-      </el-form>
-    </el-tab-pane>
-    <el-tab-pane label="注册">
-      <!-- <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign"> -->
-      <el-form
-        :model="ruleForm_reg"
-        :rules="rules"
-        ref="ruleForm_reg"
-        label-width="80px"
-        class="demo-ruleForm_reg"
-      >
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="ruleForm_reg.username"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="psw">
-          <el-input v-model="ruleForm_reg.psw"></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="comfirmPsw">
-          <el-input v-model="ruleForm_reg.comfirmPsw"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm_reg')">提交</el-button>
-          <el-button @click="resetForm('ruleForm_reg')">重置</el-button>
-        </el-form-item>
-      </el-form>
-    </el-tab-pane>
-  </el-tabs>
+          <el-form-item>
+            <el-button type="primary" @click="submitForm_login('ruleForm_login')">提交</el-button>
+          </el-form-item>
+        </el-form>
+      </el-tab-pane>
+      <el-tab-pane label="注册">
+        <!-- <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign"> -->
+        <el-form
+          :model="ruleForm_reg"
+          :rules="rules"
+          ref="ruleForm_reg"
+          label-width="80px"
+          class="demo-ruleForm_reg"
+        >
+          <el-form-item label="用户名" prop="username">
+            <el-input v-model="ruleForm_reg.username"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="psw">
+            <el-input v-model="ruleForm_reg.psw"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="comfirmPsw">
+            <el-input v-model="ruleForm_reg.comfirmPsw"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="submitForm('ruleForm_reg')">提交</el-button>
+            <el-button @click="resetForm('ruleForm_reg')">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 
 <script>
@@ -182,7 +197,7 @@ export default {
       });
     },
 
-     submitForm(formName) {
+    submitForm(formName) {
       this.$refs[formName].validate(valid => {
         // console.log(valid);
         if (valid) {
@@ -211,7 +226,34 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
+    },
+     handleClick(tab, event) {
+        console.log(tab, event);
+      }
+
   }
 };
 </script>
+<style lang="scss">
+.login_reg {
+  .header-back {
+    height: 0.44rem;
+    font-size: 0.17rem;
+    line-height: 0.44rem;
+    padding: 0 0.1rem;
+  }
+  .header-text {
+    text-align: center;
+    color: #000;
+    font-size: 0.17rem;
+    line-height: 0.44rem;
+    height: 0.44rem;
+    padding: 0 0.44rem;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    overflow: hidden;
+  }
+}
+</style>
