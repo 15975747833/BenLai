@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <el-container>
-      <el-header style="height:0.44rem;">
+      <el-header style="height:0.44rem" >
         <el-row>
           <el-col :span="6">
             <div class="grid-content bg-purple" @click="goto('/Address')">
@@ -247,7 +247,7 @@ export default {
 }
 .el-main {
   padding: 0;
-  margin: 0.44rem 0rem 0.49rem;
+  margin: 0.60rem 0rem 0.49rem;
   background: #f9f9fb;
 
   .el-aside {
@@ -342,6 +342,7 @@ export default {
         }
       }
       dd {
+        background:#fff;
         .el-row {
           .el-col {
             width: 100%;

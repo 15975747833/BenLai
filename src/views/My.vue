@@ -3,15 +3,15 @@
     <el-header style="height:0.44rem">
       <el-row :gutter="20">
         <el-col :span="8">
-          <div class="grid-content bg-purple header-l">&lt;</div>
+          <div class="grid-content bg-purple header-l"></div>
         </el-col>
         <el-col :span="8">
           <div class="grid-content bg-purple header-c">我的本来</div>
         </el-col>
         <el-col :span="8">
           <div class="grid-content bg-purple header-r">
-            <i class="el-icon-setting"></i>
-            <i class="el-icon-alarm-clock"></i>
+            <i class="el-icon-s-unfold" style="color:#9dd300;font-size:0.17rem;line-height: 0.44rem;" @click="quit">退出</i>
+           
           </div>
         </el-col>
       </el-row>
@@ -22,7 +22,7 @@
           <div class="benlai-top-title">
             <div class="circle"></div>
             <div class="info">
-              <p>本来用户</p>
+              <p>{{username}}</p>
               <p></p>
             </div>
           </div>
@@ -248,7 +248,28 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return { username: "本来用户" };
+  },
+  created() {
+    let saveUsername = localStorage.getItem("username");
+    if (saveUsername) {
+      this.username = saveUsername;
+    } else {
+      this.username = "本来用户";
+    }
+    return this.username;
+  },
+  methods:{
+    quit(){
+      // 点击退出，清除本地存储
+      localStorage.removeItem('username');
+      localStorage.removeItem('loginStatus');
+      
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -276,11 +297,12 @@ export default {};
 }
 .el-main {
   padding: 0rem;
+  margin-bottom:0.49rem;
   //   position: relative;
   height: 100%;
   .benlai-top {
     height: 1.2rem;
-    background: #0dc441;
+    background: #9dd300;
     .benlai-top-title {
       padding-left: 0.2rem;
       padding-top: 0.2rem;
@@ -306,7 +328,7 @@ export default {};
   .grade {
     display: flex;
     width: 100%;
-    padding: 0 0.1rem;
+    // padding: 0 0.1rem;
     // position: absolute;
     // top: 0.9rem;
     li {
@@ -459,23 +481,21 @@ export default {};
           border-radius: 0.04rem;
         }
       }
-
-      
     }
     .ico {
-        margin-bottom: 0.1rem;
-        a {
-          padding: 0.12rem 0;
-          i{
-              font-size: 0.48rem;
-          }
-          p {
-            font-size: 0.12rem;
-            color: #000;
-            line-height: 0.2rem;
-          }
+      margin-bottom: 0.1rem;
+      a {
+        padding: 0.12rem 0;
+        i {
+          font-size: 0.48rem;
+        }
+        p {
+          font-size: 0.12rem;
+          color: #000;
+          line-height: 0.2rem;
         }
       }
+    }
   }
 }
 </style>

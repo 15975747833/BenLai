@@ -4,7 +4,7 @@
       <el-row type="flex" class="row-bg" justify="center">
         <el-col :span="6">
           <div class="grid-content bg-purple">
-            <i class="el-icon-close header-back" @click="goto('/category')"></i>
+            <i class="el-icon-close header-back" @click="goto('/home')"></i>
           </div>
         </el-col>
         <el-col :span="16">
@@ -246,7 +246,9 @@ export default {
   },
   methods: {
     goto(path) {
-      this.$router.push(path);
+      // console.log('goto',this.$route.query)
+      // this.$router.replace(this.$route.query.redirect);
+      this.$router.replace(path);
     },
     saveCurrentCity(currentcity) {
       // console.log(currentcity)
