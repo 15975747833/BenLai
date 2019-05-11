@@ -81,7 +81,8 @@ const router = new Router({
 
 })
 router.beforeEach((to, from, next) => {
-  // console.log('next',next.params)
+  // console.log('from',from)
+  // console.log('to',to)
   // 全局路由判断有没有meta属性，有-> 校验localStorage的值；无直接放行
   if (to.matched.some(record => record.meta.loginStatus)) {
     // 校验本地存储登陆状态
@@ -95,6 +96,7 @@ router.beforeEach((to, from, next) => {
         query: {
           redirect: to.fullPath
         }
+        
       })
     }
 
@@ -104,72 +106,10 @@ router.beforeEach((to, from, next) => {
         redirect: to.fullPath
       }
     })
+  //   console.log('from',from),
+  // console.log('to',to)
   )
 
 })
 
 export default router;
-// export default new Router({
-//   // mode: 'history',
-//   base: process.env.BASE_URL,
-
-//   routes: [{
-//       path: '/',
-//       redirect: '/home'
-//     },
-//     {
-//       name: 'Home',
-//       path: '/home',
-//       component: Home
-
-//     },
-//     {
-//       name: 'Category',
-//       path: '/category',
-//       component: Category,
-
-//     },
-//     {
-//       name: 'Login',
-//       path: '/login',
-//       component: Login
-//     },
-//     {
-//       name: 'Cart',
-//       path: '/cart',
-//       component: Cart,
-//       meta: {
-//         loginStatus: true
-//       }
-//     },
-//     {
-//       name: 'My',
-//       path: '/my',
-//       component: My
-//     },
-//     {
-//       name: 'Search',
-//       path: '/search',
-//       component: Search
-//     },
-//     {
-//       name: 'Address',
-//       path: '/address',
-//       component: Address
-//     }, {
-//       name: 'List',
-//       path: '/list',
-//       component: List
-//     }, {
-//       name: 'Goods',
-//       path: '/goods',
-//       // path:'/goods/:id',
-//       component: Goods,
-//     }
-//   ]
-
-
-// })
-// .beforeEach((to,from,next)=>{
-//   console.log('to',to)
-// })

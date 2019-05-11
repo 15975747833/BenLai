@@ -3,17 +3,25 @@
     <el-header class="header">
       <el-row :gutter="3">
         <el-col :span="4" class="dizhi">
-          <span class="rignt">北京</span>
+          <span class="rignt" @click="goto('/address')">{{getCurrentcity}}</span>
         </el-col>
         <el-col :span="16">
-          <el-input placeholder="洪湖渔家小龙虾49.9元" prefix-icon="el-icon-search" class="mysearch"></el-input>
+          <el-input
+            placeholder="洪湖渔家小龙虾49.9元"
+            prefix-icon="el-icon-search"
+            class="mysearch"
+            v-model="keyword"
+            @focus="search_list_show()"
+            @blur="search_list_hide()"
+            @input="search_result()"
+          ></el-input>
         </el-col>
         <el-col :span="4" class="login-bar">
           <el-button type="text" class="login">搜索</el-button>
         </el-col>
       </el-row>
     </el-header>
-    <div class="search_new_box">
+    <div class="search_new_box" :is="false">
       <dl class="hotsearch">
         <dt>
           <p>热门搜索</p>
@@ -51,11 +59,94 @@
         </dd>
       </dl>
     </div>
+    <div class="search_list">
+      <div class="search_row">
+        <el-row
+          type="flex"
+          class="row-bg"
+          v-for="item in result_list"
+          :key="item.index"
+         @click.native="search(item)"
+        >
+          <el-col :span="20"   >
+            <div class="grid-content bg-purple search_content">{{item}}</div>
+          </el-col>
+          <el-col :span="4">
+            <div class="grid-content bg-purple-light">
+              <i class="el-icon-top-left"></i>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      keyword: "",
+      result_list: []
+      // active: "true"
+    };
+  },
+  computed: {
+    getCurrentcity() {
+      return this.$store.state.currentcity;
+    }
+  },
+  methods: {
+    goto(path) {
+      this.$router.push(path);
+    },
+    search_list_show() {
+      // this.active='false';
+      // console.log('this',this.active)
+    },
+    search_list_hide() {
+      // this.active='true';
+      // console.log('this',this.active)
+    },
+    search_result() {
+      // 输入框输入状态改变，请求全部数据，在数据里面筛选type含有关键字的
+      this.timer = setTimeout(() => {
+        this.$axios
+          .get("http://193.112.60.97:19011/goodslist", {
+            params: {
+              // type:this.keyword,
+              category: this.keyword
+            }
+          })
+          .then(({ data }) => {
+            // 拿到数据对数据进行去重
+            function de_duplication(arr) {
+              let obj = {};
+              let peon = arr.reduce((cur, next) => {
+                obj[next.type] ? "" : (obj[next.type] = true && cur.push(next));
+                return cur;
+              }, []); //设置cur默认类型为数组，并且初始值为空的数组
+              //获取总类的数组--单独
+              return peon.map(item => item.type);
+            }
+            // 得到去重后的tyoe的数组
+            this.result_list = de_duplication(data);
+          });
+      }, 300);
+
+      // this.$axios
+      //   .get("http://193.112.60.97:19011/menu", {})
+      //   .then(({ data: menu }) => {
+      //     // this.menu = menu;
+      //     console.log(menu);
+      //   })
+    },
+    search(type) {
+      console.log('type',type)
+      this.$router.push({ path: "/list", params: { type: type } });
+    }
+  }
+};
 </script>
 
 <style lang="scss" >
@@ -171,6 +262,32 @@ export default {};
           display: block;
           overflow: hidden;
         }
+      }
+    }
+  }
+  .search_list {
+    .search_row {
+      border-bottom: 1px solid #ddd;
+      background-color: #fff;
+      margin-bottom: 0.1rem;
+      padding: 0rem 0.1rem;
+      .search_content {
+        font-size: 0.14rem;
+        color: #333;
+        line-height: 0.44rem;
+        padding: 0rem 0.34rem 0rem 0rem;
+        box-sizing: border-box;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        height: 0.44rem;
+      }
+      .el-icon-top-left {
+        font-size: 0.14rem;
+        color: #333;
+        line-height: 0.44rem;
+        padding: 0rem 0rem 0rem 0.34rem;
+        text-align: right;
       }
     }
   }

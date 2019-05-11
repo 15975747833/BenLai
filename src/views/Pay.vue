@@ -86,12 +86,17 @@ export default {
         vv.goodsNum = item.goodsNum;
         vv.proPrice=item.proPrice;
         vv.qty=item.qty;
+        vv.productName = item.productName;
         gdArr.push(vv)
       });
       this.$axios
             .post("http://193.112.60.97:19011/order", { buyer, gdArr })
             .then(({ data }) => {
-              console.log('添加成功')
+              alert('已创建订单')
+              localStorage.removeItem('cartData');
+              this.$store.commit("removeFromCart", {goodslist:"goodslist"});
+              this.$router.push({ name: "Home"});   
+              
             });
     }
   }

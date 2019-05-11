@@ -3,7 +3,7 @@
     <el-row type="flex" class="row-bg header">
       <el-col :span="4">
         <div class="grid-content bg-purple">
-          <i class="el-icon-arrow-left header-back"></i>
+          <i class="el-icon-arrow-left header-back" @click="goto('/home')"></i>
         </div>
       </el-col>
       <el-col :span="16">
@@ -26,7 +26,7 @@
             <el-input v-model="ruleForm_login.username_login"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="psw_login">
-            <el-input v-model="ruleForm_login.psw_login"></el-input>
+            <el-input v-model="ruleForm_login.psw_login" :show-password="true"></el-input>
           </el-form-item>
 
           <el-form-item>
@@ -47,10 +47,10 @@
             <el-input v-model="ruleForm_reg.username"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="psw">
-            <el-input v-model="ruleForm_reg.psw"></el-input>
+            <el-input v-model="ruleForm_reg.psw" :show-password="true"></el-input>
           </el-form-item>
           <el-form-item label="确认密码" prop="comfirmPsw">
-            <el-input v-model="ruleForm_reg.comfirmPsw"></el-input>
+            <el-input v-model="ruleForm_reg.comfirmPsw" :show-password="true"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm_reg')">提交</el-button>
@@ -184,21 +184,26 @@ export default {
             .get("http://193.112.60.97:19011/login", {
               params
             })
-            .then(data => {
-              // 登陆成功将用户名和登陆状态存入localStorage---------------
-              localStorage.setItem('username',username_login)
-              localStorage.setItem('loginStatus',true)
-              this.$message("登录成功");
-              this.$router.push('/home');
-              // console.log(this.$route.query===null)
-              //如果从登陆页面直接进去，登陆后跳转到首页;从'登陆按钮'进去，登陆后跳到首页
-              
-              // if(this.$route.query){
-              //   this.$router.replace(this.$route.query.redirect);
-              // }else{
-              //   this.$router.replace('/hone');
-              // }
-              // this.$router.replace(this.$route.query.redirect);
+            .then(({ data }) => {
+              if (data.status == 200) {
+                // 登陆成功将用户名和登陆状态存入localStorage---------------
+                localStorage.setItem("username", username_login);
+                localStorage.setItem("loginStatus", true);
+                this.$message("登录成功");
+                this.$router.push("/home");
+                // console.log(this.$route.query===null)
+                //如果从登陆页面直接进去，登陆后跳转到首页;从'登陆按钮'进去，登陆后跳到首页
+
+                // if(this.$route.query){
+                //   this.$router.replace(this.$route.query.redirect);
+                // }else{
+                //   this.$router.replace('/hone');
+                // }
+                // this.$router.replace(this.$route.query.redirect);
+              } else if (data.status == 400) {
+                this.$message("用户名或密码有误");
+              }
+              console.log("login", data);
             });
         } else {
           console.log("error submit!!");
@@ -223,14 +228,18 @@ export default {
           this.$axios
             .post("http://193.112.60.97:19011/reg", { username, password })
             .then(({ data }) => {
-              this.$message("注册成功");
-               // 注册成功将用户名和登陆状态存入localStorage---------------
-              localStorage.setItem("username", username);
-              localStorage.setItem('loginStatus',true)
-              // 注册后跳到首页
-              this.$router.replace('/home');
+              if (data.status == 200) {
+                this.$message("注册成功");
+                // 注册成功将用户名和登陆状态存入localStorage---------------
+                localStorage.setItem("username", username);
+                localStorage.setItem("loginStatus", true);
+                // 注册后跳到首页
+                this.$router.replace("/home");
 
-              // this.$router.replace(this.$route.params.redirect);
+                // this.$router.replace(this.$route.params.redirect);
+              }else{
+                this.$message("数据库正在维护，请等下注册哈~");
+              }
             });
         } else {
           // console.log("error submit!!");
@@ -241,6 +250,10 @@ export default {
     //注册页重置按钮===================
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    goto(path) {
+      console.log("x", path);
+      this.$router.push(path);
     }
   }
 };

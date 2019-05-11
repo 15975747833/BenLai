@@ -147,8 +147,6 @@ export default {
         this.tuijian = data;
         console.log(this.tuijian);
         console.log("this.$store=", this.$store);
-
-        this.$store;
       });
   },
   computed:{
@@ -166,9 +164,11 @@ export default {
           name: "Pay",
           params: { goods: this.goods }
         });
+        localStorage.removeItem('cartData');
       } else {
         this.$router.push({ name: "Login", params: { goodsNum: goods.goodsNum } });
       }
+
     },
     changeqty(value, id) {
       console.log(value, id);
@@ -176,9 +176,9 @@ export default {
         console.log("item.goodsNum=", item.goodsNum);
         if (item.goodsNum === id) {
           
-            console.log(777)
-            let goodsNum = item.goodsNum
+          let goodsNum = item.goodsNum
             this.$store.commit("changeQty", { goodsNum, qty: value });
+            console.log(777,$store)
         }
       });
     }

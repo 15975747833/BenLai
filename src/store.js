@@ -35,6 +35,9 @@ export default new Vuex.Store({
   // 删除商品
   removeFromCart(state,{proId}){
       state.goodslist = state.goodslist.filter(goods=>goods.proId!=proId)
+      if(proId=="goodslist"){
+        state.goodslist = []
+      }
   },
 
   // 修改数量

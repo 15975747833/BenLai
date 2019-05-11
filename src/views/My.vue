@@ -3,15 +3,15 @@
     <el-header style="height:0.44rem">
       <el-row :gutter="20">
         <el-col :span="8">
-          <div class="grid-content bg-purple header-l">&lt;</div>
+          <div class="grid-content bg-purple header-l"></div>
         </el-col>
         <el-col :span="8">
           <div class="grid-content bg-purple header-c">我的本来</div>
         </el-col>
         <el-col :span="8">
           <div class="grid-content bg-purple header-r">
-            <i class="el-icon-setting"></i>
-            <i class="el-icon-alarm-clock"></i>
+            <i class="el-icon-s-unfold" style="color:#9dd300;font-size:0.17rem;line-height: 0.44rem;" @click="goto" v-show="loginstatus">登录</i>
+            <i class="el-icon-s-unfold" style="color:#9dd300;font-size:0.17rem;line-height: 0.44rem;" @click="quit" v-show="quitstatus">退出</i>
           </div>
         </el-col>
       </el-row>
@@ -20,12 +20,10 @@
       <div class="benlai-green">
         <div class="benlai-top">
           <div class="benlai-top-title">
-            <div class="circle" style='background:url("http://img1.mydrivers.com/img/20181105/Sc468f356-6839-4b7b-8bd4-4dd06b218478.jpg");background-size: contain;'>
-              
-            </div>
+            <div class="circle"></div>
             <div class="info">
               <p>{{username}}</p>
-
+            
             </div>
           </div>
         </div>
@@ -135,7 +133,7 @@
           </div>
         </dl>
         <dl>
-          <dd class="ico">
+           <dd class="ico">
             <el-row>
               <el-col :span="6" v-for="(item,idx) in ico" :key="idx">
                 <div class="grid-content bg-purple">
@@ -156,8 +154,10 @@
 <script>
 export default {
   data() {
-    return {
-      username: "本来用户",
+    return { 
+      username: "本来用户" ,
+      loginstatus:true,
+      quitstatus:false,
       ico: [
         { keyname: "我的会员", icon: "el-icon-star-on" },
         { keyname: "赠品兑换 ", icon: "el-icon-star-on" },
@@ -176,13 +176,30 @@ export default {
         { price: 1000, msg: "充值1000送新西兰皇后苹果礼盒装" },
         { price: 500, msg: "充值1000送新西兰皇后苹果礼盒装" }
       ]
-    };
+      };
   },
   created() {
-    let user = localStorage.getItem("username");
-    let loginStatus = localStorage.getItem("loginStatus");
-    if (loginStatus) {
-      this.username = user;
+    let saveUsername = localStorage.getItem("username");
+    if (saveUsername) {
+      this.username = saveUsername;
+      this.loginstatus=false;
+      this.quitstatus=true
+    } else {
+      this.username = "本来用户";
+      this.loginstatus=true;
+      this.quitstatus=false
+    }
+  },
+  methods:{
+    goto(){
+      // 点击登录，跳转到登录页
+      this.$router.push({ name: "Login"});     
+    },
+    quit(){
+      // 点击退出，清除本地存储
+      localStorage.removeItem('username');
+      localStorage.removeItem('loginStatus');
+      this.$router.push({ name: "Home"});     
     }
   }
 };
@@ -213,11 +230,12 @@ export default {
 }
 .el-main {
   padding: 0rem;
+  margin-bottom:0.49rem;
   //   position: relative;
   height: 100%;
   .benlai-top {
     height: 1.2rem;
-    background:#551a8b;
+    background: #9dd300;
     .benlai-top-title {
       padding-left: 0.2rem;
       padding-top: 0.2rem;
@@ -236,7 +254,6 @@ export default {
         line-height: 0.5rem;
         p {
           padding-left: 0.8rem;
-          color: #fff;
         }
       }
     }
@@ -244,7 +261,7 @@ export default {
   .grade {
     display: flex;
     width: 100%;
-    padding: 0 0.1rem;
+    // padding: 0 0.1rem;
     // position: absolute;
     // top: 0.9rem;
     li {
@@ -312,6 +329,7 @@ export default {
           color: #999;
           line-height: 0.56rem;
           padding-right: 0.2rem;
+
           background-size: 0.15rem;
         }
       }
@@ -408,7 +426,6 @@ export default {
           font-size: 0.12rem;
           color: #000;
           line-height: 0.2rem;
-          
         }
       }
     }
