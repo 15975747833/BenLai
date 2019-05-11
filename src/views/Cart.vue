@@ -178,9 +178,7 @@ export default {
             console.log(777)
             let goodsNum = item.goodsNum
             this.$store.commit("changeQty", { goodsNum, qty: value });
-          
         }
-        
       });
     }
   }

@@ -4,10 +4,10 @@
       <el-header class="header">
         <el-row :gutter="3">
           <el-col :span="4" class="dizhi">
-            <span class="rignt">北京</span>
+            <span class="rignt" @click="goto('/address')">{{getCurrentcity}}</span>
           </el-col>
           <el-col :span="16">
-            <el-input placeholder="洪湖渔家小龙虾49.9元" prefix-icon="el-icon-search" class="mysearch"></el-input>
+            <el-input placeholder="洪湖渔家小龙虾49.9元" prefix-icon="el-icon-search" class="mysearch" @click="goto('/search')"></el-input>
           </el-col>
           <el-col :span="4" class="login-bar">
             <el-button type="text" @click="goto('/login')" class="login">登录</el-button>
@@ -282,7 +282,18 @@ export default {
         }
       ]
     };
+  },
+  methods:{
+    goto(path){
+      this.$router.push(path);
+    }
+  },
+  computed:{
+    getCurrentcity(){
+      return this.$store.state.currentcity;
+    }
   }
+  
 };
 </script>
 
