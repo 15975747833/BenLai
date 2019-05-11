@@ -32,9 +32,14 @@
           <i class="el-icon-arrow-right"></i>
         </div>
       </el-main>
-      <el-col>
 
-        <div class="cart-list" style="background:#efefef;" v-for="item in goods" :key="item.goodsNum">
+      <el-col>
+        <div
+          class="cart-list"
+          style="background:#efefef;"
+          v-for="item in goods"
+          :key="item.goodsNum"
+        >
           <div class="cart-title">
             <el-checkbox class="allCheck">{{item.promotionsTags}}</el-checkbox>
             <span>包邮</span>
@@ -47,16 +52,22 @@
               <img :src="item.imageUrl" style="width:100%">
             </el-col>
             <el-col :span="15">
-              <h4 class="name">{{item.productName}}</h4>
+              <p class="name">{{item.productName}}</p>
               <p class="price">
                 <span>￥{{item.proPrice}}</span>
-                <el-input-number :min="1" :max="5" label="数量" size="mini" :value="item.qty"></el-input-number>
+                <el-input-number
+                  v-model="item.qty"
+                  @change="changeqty($event,item.goodsNum)"
+                  :min="1"
+                  :max="10"
+                  label="描述文字"
+                ></el-input-number>
               </p>
             </el-col>
           </el-row>
         </div>
-
       </el-col>
+
       <el-col>
         <div class="recommend">
           一
@@ -67,7 +78,7 @@
           <ul style="padding-bottom:0.5rem;">
             <li v-for="item in tuijian" :key="item.goodsNum">
               <img :src="item.imageUrl" alt>
-              <p>{{item.productName}}</p>
+              <p class="name">{{item.productName}}</p>
               <div class="price">
                 <p>
                   <span>￥{{item.price.price}}</span>
@@ -78,7 +89,6 @@
                 </i>
               </div>
             </li>
-            
           </ul>
 
           <el-footer class="payFooter">
@@ -88,20 +98,19 @@
               </el-col>
               <el-col :span="7" class="calNum yangshi">
                 合计
-                <span class="totalPrice">￥92.5</span>
+                <span class="totalPrice">￥{{totalPrice}}</span>
               </el-col>
               <el-col :span="5" class="yangshi2">
                 <p class="pay">
-                  <span>
+                  <span @click="goto">
                     去结算
-                    <b class="yunfei">(运费10元)</b>
+                    <b class="yunfei">(运费0元)</b>
                   </span>
                 </p>
               </el-col>
             </el-row>
           </el-footer>
         </div>
-
       </el-col>
     </el-container>
   </div>
@@ -112,20 +121,18 @@ export default {
   data() {
     return {
       goods: null,
-      tuijian:null
+      tuijian: null,
+      num: 1
     };
   },
-  created(){
-    let aa = JSON.parse( localStorage.getItem("cartData"));
-    let bb = []
-    
-    for(var i=0;i<aa.length;i++){
-      
+  created() {
+    let aa = JSON.parse(localStorage.getItem("cartData"));
+    let bb = [];
+    for (var i = 0; i < aa.length; i++) {
       bb[i] = aa[i];
-      bb[i].promotionsTags = aa[i].promotionsTags[0][0]
+      bb[i].promotionsTags = aa[i].promotionsTags[0][0];
     }
     this.goods = bb;
-    console.log(this.goods)
     let type = this.goods[0].type;
 
     //请求数据渲染推荐商品
@@ -139,12 +146,43 @@ export default {
         let { data } = res;
         this.tuijian = data;
         console.log(this.tuijian);
-                console.log("this.$store=",this.$store
-);
+        console.log("this.$store=", this.$store);
 
-        this.$store
+        this.$store;
       });
-    
+  },
+  computed:{
+        totalPrice(){
+            return this.$store.state.goodslist.reduce((prev,item)=>prev+item.proPrice*item.qty,0)
+        }
+    },
+  methods: {
+    goto(goods) {
+      let aa = 123;
+      if (aa) {
+        this.$router.push({
+          name: "Pay",
+          params: { goodsNum: goods.goodsNum }
+        });
+      } else {
+        console.log(666);
+        // this.$router.push({ name: "Login", params: { goodsNum: goods.goodsNum } });
+      }
+    },
+    changeqty(value, id) {
+      console.log(value, id);
+      this.goods.forEach(item => {
+        console.log("item.goodsNum=", item.goodsNum);
+        if (item.goodsNum === id) {
+          
+            console.log(777)
+            let goodsNum = item.goodsNum
+            this.$store.commit("changeQty", { goodsNum, qty: value });
+          
+        }
+        
+      });
+    }
   }
 };
 </script>
@@ -207,7 +245,7 @@ export default {
           height: 0.9rem;
         }
         .name {
-          font-size: 0.16rem;
+          font-size: 0.13rem;
         }
         .price {
           width: 100%;

@@ -15,6 +15,7 @@ import List from './views/List.vue';
 import Search from './views/Search.vue';
 import Address from './views/Address.vue';
 import Goods from './views/Goods.vue';
+import Pay from './views/Pay.vue';
 
 // import Footer from './components/Footer.vue'
 
@@ -72,6 +73,11 @@ export default new Router({
       path:'/goods',
       // path:'/goods/:id',
       component:Goods,
-  }
+  },{
+    name:'Pay',
+    path:'/pay',
+    // path:'/Pay/:id',
+    component:Pay,
+}
   ]
 })
