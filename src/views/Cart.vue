@@ -158,15 +158,16 @@ export default {
     },
   methods: {
     goto(goods) {
-      let aa = 123;
-      if (aa) {
+      let user = localStorage.getItem("username");
+      let loginStatus = localStorage.getItem("loginStatus")
+     
+      if (loginStatus) {
         this.$router.push({
           name: "Pay",
-          params: { goodsNum: goods.goodsNum }
+          params: { goods: this.goods }
         });
       } else {
-        console.log(666);
-        // this.$router.push({ name: "Login", params: { goodsNum: goods.goodsNum } });
+        this.$router.push({ name: "Login", params: { goodsNum: goods.goodsNum } });
       }
     },
     changeqty(value, id) {

@@ -10,8 +10,9 @@
             <el-input placeholder="洪湖渔家小龙虾49.9元" prefix-icon="el-icon-search" class="mysearch" @click="goto('/search')"></el-input>
           </el-col>
           <el-col :span="4" class="login-bar">
-            <el-button type="text" @click="goto('/login')" class="login">登录</el-button>
+            <el-button type="text" @click="goto('/login')" class="login">{{username}}</el-button>
           </el-col>
+          
         </el-row>
       </el-header>
       <div id="nav">
@@ -81,6 +82,7 @@ export default {
   data: function() {
     return {
       activeName: "first",
+      username:'登录',
       imgs: [
         {
           id: 1,
@@ -283,6 +285,13 @@ export default {
       ]
     };
   },
+  created(){
+    let user = localStorage.getItem("username");
+    let loginStatus = localStorage.getItem("loginStatus")
+    if(loginStatus){
+      this.username = '';
+    }
+  },
   methods:{
     goto(path){
       this.$router.push(path);
@@ -292,6 +301,7 @@ export default {
     getCurrentcity(){
       return this.$store.state.currentcity;
     }
+    
   }
   
 };

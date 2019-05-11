@@ -20,10 +20,12 @@
       <div class="benlai-green">
         <div class="benlai-top">
           <div class="benlai-top-title">
-            <div class="circle"></div>
+            <div class="circle" style='background:url("http://img1.mydrivers.com/img/20181105/Sc468f356-6839-4b7b-8bd4-4dd06b218478.jpg");background-size: contain;'>
+              
+            </div>
             <div class="info">
-              <p>本来用户</p>
-              <p></p>
+              <p>{{username}}</p>
+
             </div>
           </div>
         </div>
@@ -118,36 +120,12 @@
           </dt>
           <div class="box">
             <ul style="width: 7.2rem;" id="payTab">
-              <li id="tab-202725-充值5000送630元礼包-5000-0" class="on">
-                <a href="javascript:;">
+              <li id="idx" v-for="(item,idx) in payTab" :key="idx">
+                <a>
                   <em>
-                    <span>5000</span>元
+                    <span>{{item.price}}</span>元
                   </em>
-                  <p>充值5000送630元礼包</p>
-                </a>
-              </li>
-              <li id="tab-202605-充值2000送236.9元礼包-2000-1" class>
-                <a href="javascript:;">
-                  <em>
-                    <span>2000</span>元
-                  </em>
-                  <p>充值2000送236.9元礼包</p>
-                </a>
-              </li>
-              <li id="tab-201965-充值1000送新西兰皇后苹果礼盒装-1000-2" class>
-                <a href="javascript:;">
-                  <em>
-                    <span>1000</span>元
-                  </em>
-                  <p>充值1000送新西兰皇后苹果礼盒装</p>
-                </a>
-              </li>
-              <li id="tab-201963--500-3" class>
-                <a href="javascript:;">
-                  <em>
-                    <span>500</span>元
-                  </em>
-                  <p>充值1000送新西兰皇后苹果礼盒装</p>
+                  <p>{{item.msg}}</p>
                 </a>
               </li>
             </ul>
@@ -159,83 +137,11 @@
         <dl>
           <dd class="ico">
             <el-row>
-              <el-col :span="6">
+              <el-col :span="6" v-for="(item,idx) in ico" :key="idx">
                 <div class="grid-content bg-purple">
                   <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>我的会员</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple-light">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>赠品兑换</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>我的收藏</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple-light">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>帐户管理</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>我的宅配</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple-light">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>客服中心</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>本来联名卡</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple-light">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>特权码</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>我的评价</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple-light">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>关于本来</p>
+                    <i :class="item.icon"></i>
+                    <p>{{item.keyname}}</p>
                   </a>
                 </div>
               </el-col>
@@ -248,7 +154,38 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      username: "本来用户",
+      ico: [
+        { keyname: "我的会员", icon: "el-icon-star-on" },
+        { keyname: "赠品兑换 ", icon: "el-icon-star-on" },
+        { keyname: "我的收藏", icon: "el-icon-star-on" },
+        { keyname: "帐户管理 ", icon: "el-icon-star-on" },
+        { keyname: "我的宅配", icon: "el-icon-star-on" },
+        { keyname: "客服中心 ", icon: "el-icon-star-on" },
+        { keyname: "本来联名卡 ", icon: "el-icon-star-on" },
+        { keyname: "特权码 ", icon: "el-icon-star-on" },
+        { keyname: "我的评价 ", icon: "el-icon-star-on" },
+        { keyname: "关于本来 ", icon: "el-icon-star-on" }
+      ],
+      payTab: [
+        { price: 5000, msg: "充值5000送630元礼包" },
+        { price: 2000, msg: "充值2000送236.9元礼包" },
+        { price: 1000, msg: "充值1000送新西兰皇后苹果礼盒装" },
+        { price: 500, msg: "充值1000送新西兰皇后苹果礼盒装" }
+      ]
+    };
+  },
+  created() {
+    let user = localStorage.getItem("username");
+    let loginStatus = localStorage.getItem("loginStatus");
+    if (loginStatus) {
+      this.username = user;
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -280,7 +217,7 @@ export default {};
   height: 100%;
   .benlai-top {
     height: 1.2rem;
-    background: #0dc441;
+    background:#551a8b;
     .benlai-top-title {
       padding-left: 0.2rem;
       padding-top: 0.2rem;
@@ -299,6 +236,7 @@ export default {};
         line-height: 0.5rem;
         p {
           padding-left: 0.8rem;
+          color: #fff;
         }
       }
     }
@@ -374,7 +312,6 @@ export default {};
           color: #999;
           line-height: 0.56rem;
           padding-right: 0.2rem;
-
           background-size: 0.15rem;
         }
       }
@@ -459,23 +396,22 @@ export default {};
           border-radius: 0.04rem;
         }
       }
-
-      
     }
     .ico {
-        margin-bottom: 0.1rem;
-        a {
-          padding: 0.12rem 0;
-          i{
-              font-size: 0.48rem;
-          }
-          p {
-            font-size: 0.12rem;
-            color: #000;
-            line-height: 0.2rem;
-          }
+      margin-bottom: 0.1rem;
+      a {
+        padding: 0.12rem 0;
+        i {
+          font-size: 0.48rem;
+        }
+        p {
+          font-size: 0.12rem;
+          color: #000;
+          line-height: 0.2rem;
+          
         }
       }
+    }
   }
 }
 </style>
