@@ -6,7 +6,7 @@
           <el-col :span="6">
             <div class="grid-content bg-purple" @click="goto('/Address')">
               <a href="#" class="city">
-                佛山
+                {{getCurrentcity}}
                 <i class="el-icon-arrow-down"></i>
               </a>
             </div>
@@ -25,8 +25,13 @@
         <el-container>
           <!-- left -->
           <el-aside width="25%">
-            <el-menu class="el-menu-vertical-demo" >
-              <el-menu-item v-for="item in menu" :key="item._id" @click="getData(item.name)" text-color="#333">
+            <el-menu class="el-menu-vertical-demo">
+              <el-menu-item
+                v-for="item in menu"
+                :key="item._id"
+                @click="getData(item.name)"
+                text-color="#333"
+              >
                 <span slot="title">{{item.name}}</span>
               </el-menu-item>
             </el-menu>
@@ -40,8 +45,8 @@
               >
                 <span>{{item.name}}</span>
               </li>
-            </ul> -->
-             <!-- 原生结构 end -->
+            </ul>-->
+            <!-- 原生结构 end -->
           </el-aside>
           <!-- right -->
           <el-main class="main_r">
@@ -66,7 +71,8 @@
                 <el-row>
                   <el-col>
                     <div
-                      class="grid-content bg-purple dd-item" @click="gotolist(item)"
+                      class="grid-content bg-purple dd-item"
+                      @click="gotolist(item)"
                       v-for="item in child"
                       :key="item._id"
                     >
@@ -96,6 +102,17 @@ import Vue from "vue";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 Vue.use(ElementUI);
+// 对数组对象中的值进行去重，并成为新数组
+function de_duplication(arr) {
+  let obj = {};
+  let peon = arr.reduce((cur, next) => {
+    obj[next.typetitle] ? "" : (obj[next.typetitle] = true && cur.push(next));
+    return cur;
+  }, []); //设置cur默认类型为数组，并且初始值为空的数组
+  //获取总类的数组--单独
+  return peon.map(item => item.typetitle);
+}
+
 export default {
   data() {
     return {
@@ -103,7 +120,7 @@ export default {
       // menu 大类总名字
       // datalist 当前渲染的数据
       // typetitle 当前渲染数据的中类
-      currentCategory: [],
+      currentCategory: "镇店之宝",
       menu: [],
       datalist: [],
       typetitle: "",
@@ -111,11 +128,41 @@ export default {
     };
   },
   created() {
+    //请求menu数据
     this.$axios
       .get("http://193.112.60.97:19011/menu", {})
       .then(({ data: menu }) => {
         this.menu = menu;
       });
+    // 默认请求 镇店之宝
+    this.$axios
+      .get("http://193.112.60.97:19011/goodslist", {
+        params: {
+          category: this.currentCategory,
+          hotsale: true
+        }
+      })
+      .then(({ data }) => {
+        this.datalist = data;
+        this.typetitle = this.datalist[0].typetitle;
+        // 点击menu 把当前category保存下来
+        this.currentCategory = this.currentCategory;
+
+        // 把data中的typetitle种类保存下来,得到种类为typetitle的数据 过滤出data中含有typetitle的数据
+        let peon = de_duplication(this.datalist);
+
+        // filter 出datalist里面typetitle属性的数据
+        for (let i = 0; i < peon.length; i++) {
+          let aa = [];
+          aa = this.datalist.filter(item => item.typetitle == peon[i]);
+          this.subclass.push(aa);
+        }
+      });
+  },
+  computed: {
+    getCurrentcity() {
+      return this.$store.state.currentcity;
+    }
   },
   methods: {
     getData(name) {
@@ -132,42 +179,23 @@ export default {
             this.typetitle = this.datalist[0].typetitle;
             // 点击menu 把当前category保存下来
             this.currentCategory = name;
-            // console.log("origin",this.datalist);
 
             // 把data中的typetitle种类保存下来,得到种类为typetitle的数据 过滤出data中含有typetitle的数据
             let peon = de_duplication(this.datalist);
-            // console.log("peon", peon);
-
-            function de_duplication(arr) {
-              let obj = {};
-              let peon = arr.reduce((cur, next) => {
-                obj[next.typetitle]
-                  ? ""
-                  : (obj[next.typetitle] = true && cur.push(next));
-                return cur;
-              }, []); //设置cur默认类型为数组，并且初始值为空的数组
-              //获取总类的数组--单独
-              return peon.map(item => item.typetitle);
-            }
-
             // filter 出datalist里面typetitle属性的数据
             for (let i = 0; i < peon.length; i++) {
               let aa = [];
               aa = this.datalist.filter(item => item.typetitle == peon[i]);
-              // console.log('分类后',this.subclass);
-              // console.log("aa=",aa)
               this.subclass.push(aa);
             }
-            // console.log("this.subclass=",this.subclass)
           });
-          
     },
     goto(path) {
       this.$router.push(path);
     },
     // 向列表页跳转函数，将type传到列表页
-    gotolist(goods){
-      this.$router.push({name:'List',params:{type:goods.type}})
+    gotolist(goods) {
+      this.$router.push({ name: "List", params: { type: goods.type } });
     }
   }
 };
@@ -206,10 +234,7 @@ export default {
           height: 0.3rem;
           font: 400 0.15rem/0.29rem "黑体";
           color: #000;
-          // background: url(//image.benlailife.com/static/images/top/top_new_98624a41.png)
-          //   0.1rem -4.23rem no-repeat #f3f3f3;
           border: 1px solid #f3f3f3;
-          // background-size: 0.23rem 5.37rem;
           width: 100%;
           padding: 0.05rem 0.35rem 0.05rem 0.32rem;
           box-sizing: border-box;
@@ -240,9 +265,7 @@ export default {
             border-left: 0.02rem solid #9dd300;
           }
         }
-        // border-bottom:1px solid #ccc;
         span {
-          // border-left: 0.02rem solid #9dd300;
           color: #333;
           line-height: 0.2rem;
           padding-right: 0.02rem;
@@ -293,13 +316,15 @@ export default {
     .all {
       width: 100%;
       margin-bottom: 0.1rem;
-      font-size: 0.14rem;
-      color: #333;
-      line-height: 0.44rem;
+
       text-align: center;
       background-color: #fff;
       position: relative;
-      z-index: 0;
+      a {
+        font-size: 0.14rem;
+        color: #333;
+        line-height: 0.44rem;
+      }
     }
     dl {
       dt {
