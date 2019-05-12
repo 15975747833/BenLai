@@ -86,6 +86,7 @@ export default {
     getorder(){
       console.log('getorder')
       let buyer = localStorage.getItem("username");
+      let orderNum;
       let gdArr = [];
       this.goods.forEach(item => {
         let vv = {}
@@ -93,10 +94,11 @@ export default {
         vv.proPrice=item.proPrice;
         vv.qty=item.qty;
         vv.productName = item.productName;
+        orderNum = 'BL'+item.goodsNum + item.qty + Date.now();
         gdArr.push(vv)
       });
       this.$axios
-            .post("http://193.112.60.97:19011/order", { buyer, gdArr })
+            .post("http://193.112.60.97:19011/order", { buyer,orderNum, gdArr })
             .then(({ data }) => {
               alert('已创建订单')
               localStorage.removeItem('cartData');
