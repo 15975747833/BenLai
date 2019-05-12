@@ -50,7 +50,7 @@
           <el-col :span="18">
             <p style="line-height:0.6rem">
               应付金额
-              <span style="color:#ff5e00;">￥217.9</span>
+              <span style="color:#ff5e00;">￥{{total}}</span>
             </p>
           </el-col>
 
@@ -69,12 +69,18 @@
 export default {
   data() {
     return {
-      goods: null
+      goods: null,
+      total:null
     };
   },
   created() {
     let { goods } = this.$route.params;
     this.goods = goods;
+    let cc = 0;
+    this.goods.forEach(item =>{
+      cc+=item.proPrice * item.qty;
+    })
+    total = cc;
   },
   methods:{
     getorder(){

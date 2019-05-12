@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header style="height:0.44rem">
+    <el-header style="height:0.44rem;position:fixed;width:100%;z-index:100;background:#fff;">
       <el-row :gutter="20">
         <el-col :span="8">
           <div class="grid-content bg-purple header-l"></div>
@@ -10,20 +10,21 @@
         </el-col>
         <el-col :span="8">
           <div class="grid-content bg-purple header-r">
-            <i class="el-icon-s-unfold" style="color:#9dd300;font-size:0.17rem;line-height: 0.44rem;" @click="goto" v-show="loginstatus">登录</i>
             <i class="el-icon-s-unfold" style="color:#9dd300;font-size:0.17rem;line-height: 0.44rem;" @click="quit" v-show="quitstatus">退出</i>
           </div>
         </el-col>
       </el-row>
     </el-header>
     <el-main>
-      <div class="benlai-green">
+      <div class="benlai-green" style="margin-top:0.4rem;">
         <div class="benlai-top">
           <div class="benlai-top-title">
-            <div class="circle"></div>
+            <div class="circle" style="background:#fff;">
+              <img src="../img/user.svg" style="width:60%;margin:auto;padding-top:0.1rem;">
+            </div>
             <div class="info">
-              <p>{{username}}</p>
-            
+              <p style="color:#fff;">{{username}}</p>
+              <i style="padding:0.2rem;color:#fff;font-size:0.17rem;line-height: 0.44rem;" @click="goto" v-show="loginstatus">登录/注册</i>
             </div>
           </div>
         </div>
@@ -91,7 +92,6 @@
           <dd>
             <a href="#" name="Buying_2">
               <em class="el-icon-s-ticket"></em>
-
               <p>待支付</p>
             </a>
             <a href="#" name="Buying_3">
@@ -155,9 +155,10 @@
 export default {
   data() {
     return { 
-      username: "本来用户" ,
+      username: null,
       loginstatus:true,
       quitstatus:false,
+      headerstatus:false,
       ico: [
         { keyname: "我的会员", icon: "el-icon-star-on" },
         { keyname: "赠品兑换 ", icon: "el-icon-star-on" },
@@ -185,7 +186,7 @@ export default {
       this.loginstatus=false;
       this.quitstatus=true
     } else {
-      this.username = "本来用户";
+      this.username = null;
       this.loginstatus=true;
       this.quitstatus=false
     }
@@ -225,6 +226,7 @@ export default {
     text-align: right;
     i {
       padding-right: 0.1rem;
+      
     }
   }
 }
@@ -235,7 +237,8 @@ export default {
   height: 100%;
   .benlai-top {
     height: 1.2rem;
-    background: #9dd300;
+    background:url('../img/userbg.jpg') no-repeat;
+    background-size:cover;
     .benlai-top-title {
       padding-left: 0.2rem;
       padding-top: 0.2rem;

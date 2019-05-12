@@ -59,6 +59,21 @@
         </el-form>
       </el-tab-pane>
     </el-tabs>
+    <h2 style="text-align:center;">第三方登录</h2>
+    <el-row style="padding:0 0.3rem;margin-top:0.3rem;">
+      <el-col :span="6"><div>
+        <img src="../img/wechat.svg" style="width:0.4rem;margin:0 auto;">
+        </div></el-col>
+      <el-col :span="6"><div>
+        <img src="../img/sina.svg" style="width:0.4rem;margin:0 auto;">
+        </div></el-col>
+      <el-col :span="6"><div>
+        <img src="../img/alipay.svg" style="width:0.4rem;margin:0 auto;">
+        </div></el-col>
+      <el-col :span="6"><div>
+        <img src="../img/taobao.svg" style="width:0.4rem;margin:0 auto;">
+        </div></el-col>
+    </el-row>
   </div>
 </template>
 
