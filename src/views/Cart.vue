@@ -77,7 +77,7 @@
         <div class="cartTab">
           <ul style="padding-bottom:0.5rem;">
             <li v-for="item in tuijian" :key="item.goodsNum">
-              <img :src="item.imageUrl" alt>
+              <img :src="item.imageUrl" alt @click="gotogoods(item)">
               <p class="name">{{item.productName}}</p>
               <div class="price">
                 <p>
@@ -85,7 +85,7 @@
                 </p>
                 <del>￥{{item.price.origPrice}}</del>
                 <i>
-                  <img src="../img/cart_icon.png" alt>
+                  <img src="../img/cart_icon.png" @click="add2cart(item)">
                 </i>
               </div>
             </li>
@@ -120,7 +120,7 @@
 export default {
   data() {
     return {
-      goods: null,
+      // goods: null,
       tuijian: null,
       num: 1
     };
@@ -145,40 +145,92 @@ export default {
       .then(res => {
         let { data } = res;
         this.tuijian = data;
-        console.log(this.tuijian);
-        console.log("this.$store=", this.$store);
+        // console.log(this.tuijian);
+        // console.log("this.$store=", this.$store);
       });
   },
-  computed:{
-        totalPrice(){
-            return this.$store.state.goodslist.reduce((prev,item)=>prev+item.proPrice*item.qty,0)
-        }
+  computed: {
+    totalPrice() {
+      return this.$store.state.goodslist.reduce(
+        (prev, item) => prev + item.proPrice * item.qty,
+        0
+      );
     },
+    goods() {
+      return this.$store.state.goodslist;
+    }
+  },
   methods: {
     goto(goods) {
       let user = localStorage.getItem("username");
-      let loginStatus = localStorage.getItem("loginStatus")
-     
+      let loginStatus = localStorage.getItem("loginStatus");
+
       if (loginStatus) {
         this.$router.push({
           name: "Pay",
           params: { goods: this.goods }
         });
-        localStorage.removeItem('cartData');
+        localStorage.removeItem("cartData");
       } else {
-        this.$router.push({ name: "Login", params: { goodsNum: goods.goodsNum } });
+        this.$router.push({
+          name: "Login",
+          params: { goodsNum: goods.goodsNum }
+        });
       }
-
+    },
+    gotogoods(goods) {
+      this.$router.push({
+        name: "Goods",
+        params: { goodsNum: goods.goodsNum }
+      });
+    },
+    add2cart(goods) {
+      let {
+        goodsNum,
+        productName,
+        category,
+        type,
+        imageUrl,
+        promotionsTags
+      } = goods;
+      let proPrice = goods.price.price;
+      // console.log('thisq',this.$store.state.goodslist)
+      // 判断商品是否已经添加到购物车：是->qty++, 否：qty=1
+      let has = this.$store.state.goodslist.filter(
+        goods => goods.goodsNum == goodsNum
+      )[0];
+      if (has) {
+        this.$store.commit("changeQty", { goodsNum, qty: has.qty + 1 });
+      } else {
+        this.$store.commit("add2cart", {
+          promotionsTags,
+          goodsNum,
+          productName,
+          proPrice,
+          category,
+          imageUrl,
+          type,
+          qty: 1
+        });
+      }
+      //添加购物车后同时把goods的信息存入本地存储
+      let mystorage = this.$store.state.goodslist;
+      let aa = JSON.stringify(mystorage);
+      localStorage.setItem("cartData", aa);
+      console.log("after", this.$store.state.goodslist);
+      let bb = mystorage[0];
+      console.log("bb", bb);
+      bb.promotionsTags = bb.promotionsTags[0][0];
     },
     changeqty(value, id) {
       console.log(value, id);
       this.goods.forEach(item => {
+        // eslint-disable-next-line
         console.log("item.goodsNum=", item.goodsNum);
         if (item.goodsNum === id) {
-          
-          let goodsNum = item.goodsNum
-            this.$store.commit("changeQty", { goodsNum, qty: value });
-            console.log(777,$store)
+          let goodsNum = item.goodsNum;
+          this.$store.commit("changeQty", { goodsNum, qty: value });
+          // console.log(777, $store);
         }
       });
     }
@@ -292,6 +344,9 @@ export default {
           padding: 0 0.17rem;
           width: 1.27rem;
           height: 1.27rem;
+        }
+        .name {
+          height: 0.33rem;
         }
         p {
           padding: 0 0 0 0.1rem;
