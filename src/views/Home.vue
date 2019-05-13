@@ -285,7 +285,7 @@ export default {
   },
   methods:{
     goto(path){
-      console.log('a',path)
+   
       this.$router.push(path);
     }
   },
