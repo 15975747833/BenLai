@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header style="height:0.44rem">
+    <el-header style="height:0.44rem;position:fixed;width:100%;z-index:100;background:#fff;">
       <el-row :gutter="20">
         <el-col :span="8">
           <div class="grid-content bg-purple header-l"></div>
@@ -10,20 +10,21 @@
         </el-col>
         <el-col :span="8">
           <div class="grid-content bg-purple header-r">
-            <i class="el-icon-s-unfold" style="color:#9dd300;font-size:0.17rem;line-height: 0.44rem;" @click="quit">退出</i>
-           
+            <i class="el-icon-s-unfold" style="color:#9dd300;font-size:0.17rem;line-height: 0.44rem;" @click="quit" v-show="quitstatus">退出</i>
           </div>
         </el-col>
       </el-row>
     </el-header>
     <el-main>
-      <div class="benlai-green">
+      <div class="benlai-green" style="margin-top:0.4rem;">
         <div class="benlai-top">
           <div class="benlai-top-title">
-            <div class="circle"></div>
+            <div class="circle" style="background:#fff;">
+              <img src="../img/user.svg" style="width:60%;margin:auto;padding-top:0.1rem;">
+            </div>
             <div class="info">
-              <p>{{username}}</p>
-              <p></p>
+              <p style="color:#fff;">{{username}}</p>
+              <i style="padding:0.2rem;color:#fff;font-size:0.17rem;line-height: 0.44rem;" @click="goto" v-show="loginstatus">登录/注册</i>
             </div>
           </div>
         </div>
@@ -91,7 +92,6 @@
           <dd>
             <a href="#" name="Buying_2">
               <em class="el-icon-s-ticket"></em>
-
               <p>待支付</p>
             </a>
             <a href="#" name="Buying_3">
@@ -118,36 +118,12 @@
           </dt>
           <div class="box">
             <ul style="width: 7.2rem;" id="payTab">
-              <li id="tab-202725-充值5000送630元礼包-5000-0" class="on">
-                <a href="javascript:;">
+              <li id="idx" v-for="(item,idx) in payTab" :key="idx">
+                <a>
                   <em>
-                    <span>5000</span>元
+                    <span>{{item.price}}</span>元
                   </em>
-                  <p>充值5000送630元礼包</p>
-                </a>
-              </li>
-              <li id="tab-202605-充值2000送236.9元礼包-2000-1" class>
-                <a href="javascript:;">
-                  <em>
-                    <span>2000</span>元
-                  </em>
-                  <p>充值2000送236.9元礼包</p>
-                </a>
-              </li>
-              <li id="tab-201965-充值1000送新西兰皇后苹果礼盒装-1000-2" class>
-                <a href="javascript:;">
-                  <em>
-                    <span>1000</span>元
-                  </em>
-                  <p>充值1000送新西兰皇后苹果礼盒装</p>
-                </a>
-              </li>
-              <li id="tab-201963--500-3" class>
-                <a href="javascript:;">
-                  <em>
-                    <span>500</span>元
-                  </em>
-                  <p>充值1000送新西兰皇后苹果礼盒装</p>
+                  <p>{{item.msg}}</p>
                 </a>
               </li>
             </ul>
@@ -157,85 +133,13 @@
           </div>
         </dl>
         <dl>
-          <dd class="ico">
+           <dd class="ico">
             <el-row>
-              <el-col :span="6">
+              <el-col :span="6" v-for="(item,idx) in ico" :key="idx">
                 <div class="grid-content bg-purple">
                   <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>我的会员</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple-light">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>赠品兑换</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>我的收藏</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple-light">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>帐户管理</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>我的宅配</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple-light">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>客服中心</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>本来联名卡</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple-light">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>特权码</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>我的评价</p>
-                  </a>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div class="grid-content bg-purple-light">
-                  <a href="#">
-                    <i class="el-icon-star-on"></i>
-                    <p>关于本来</p>
+                    <i :class="item.icon"></i>
+                    <p>{{item.keyname}}</p>
                   </a>
                 </div>
               </el-col>
@@ -250,23 +154,53 @@
 <script>
 export default {
   data() {
-    return { username: "本来用户" };
+    return { 
+      username: null,
+      loginstatus:true,
+      quitstatus:false,
+      headerstatus:false,
+      ico: [
+        { keyname: "我的会员", icon: "el-icon-star-on" },
+        { keyname: "赠品兑换 ", icon: "el-icon-star-on" },
+        { keyname: "我的收藏", icon: "el-icon-star-on" },
+        { keyname: "帐户管理 ", icon: "el-icon-star-on" },
+        { keyname: "我的宅配", icon: "el-icon-star-on" },
+        { keyname: "客服中心 ", icon: "el-icon-star-on" },
+        { keyname: "本来联名卡 ", icon: "el-icon-star-on" },
+        { keyname: "特权码 ", icon: "el-icon-star-on" },
+        { keyname: "我的评价 ", icon: "el-icon-star-on" },
+        { keyname: "关于本来 ", icon: "el-icon-star-on" }
+      ],
+      payTab: [
+        { price: 5000, msg: "充值5000送630元礼包" },
+        { price: 2000, msg: "充值2000送236.9元礼包" },
+        { price: 1000, msg: "充值1000送新西兰皇后苹果礼盒装" },
+        { price: 500, msg: "充值1000送新西兰皇后苹果礼盒装" }
+      ]
+      };
   },
   created() {
     let saveUsername = localStorage.getItem("username");
     if (saveUsername) {
       this.username = saveUsername;
+      this.loginstatus=false;
+      this.quitstatus=true
     } else {
-      this.username = "本来用户";
+      this.username = null;
+      this.loginstatus=true;
+      this.quitstatus=false
     }
-    return this.username;
   },
   methods:{
+    goto(){
+      // 点击登录，跳转到登录页
+      this.$router.push({ name: "Login"});     
+    },
     quit(){
       // 点击退出，清除本地存储
       localStorage.removeItem('username');
       localStorage.removeItem('loginStatus');
-      
+      this.$router.push({ name: "Home"});     
     }
   }
 };
@@ -292,6 +226,7 @@ export default {
     text-align: right;
     i {
       padding-right: 0.1rem;
+      
     }
   }
 }
@@ -302,7 +237,8 @@ export default {
   height: 100%;
   .benlai-top {
     height: 1.2rem;
-    background: #9dd300;
+    background:url('../img/userbg.jpg') no-repeat;
+    background-size:cover;
     .benlai-top-title {
       padding-left: 0.2rem;
       padding-top: 0.2rem;

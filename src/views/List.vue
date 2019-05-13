@@ -88,7 +88,7 @@
          }).then((res)=>{
            let {data} = res;
            this.goodslist = data;
-          //  console.log(data);
+           console.log("this.goodslist=",this.goodslist);
         });
     }
   }

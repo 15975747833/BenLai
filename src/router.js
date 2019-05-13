@@ -14,6 +14,7 @@ import List from './views/List.vue';
 import Search from './views/Search.vue';
 import Address from './views/Address.vue';
 import Goods from './views/Goods.vue';
+import Pay from './views/Pay.vue';
 
 
 const router = new Router({
@@ -69,8 +70,12 @@ const router = new Router({
     }, {
       name: 'Goods',
       path: '/goods',
-      // path:'/goods/:id',
       component: Goods,
+    },
+    {
+      name: 'Pay',
+      path: '/pay',
+      component: Pay,
     }
   ]
 
