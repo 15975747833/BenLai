@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    currentcity:"北京",
+    currentcity:"广州",
     browseRecord_city:[],
     goodslist:[]
 

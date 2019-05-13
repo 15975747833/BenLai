@@ -29,9 +29,7 @@ export default {
    created() {
     // 发起ajax请求，返回promise对象
     this.$axios
-      .get("/api/order", {
-
-      })
+      .get("/api/order")
       .then(({data}) => {
         console.log(data);
         for(let i=0;i<data.length;i++){

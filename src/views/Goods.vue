@@ -3,8 +3,8 @@
   <div class="goods">
     <el-header style="height:0.44rem;padding:0;">
       <header class="mint-header cart">
-        <div class="mint-header-button is-left">
-          <a href="#/" class="router-link-active">
+        <div class="mint-header-button is-left" @click="prev()">
+          <a class="router-link-active">
             <button class="mint-button mint-button--default mint-button--normal">
               <span class="mint-button-icon">
                 <i class="mintui mintui-back"></i>
@@ -29,15 +29,15 @@
       </header>
     </el-header>
 
-    <div class="lbt">
+    <div class="lbt" v-if="goods">
       <el-carousel trigger="click" height="414px">
         <el-carousel-item v-for="(item,idx) in goods.imgArr" :key="item.goodsNum">
           <img :src="item" alt="本来生活" style="width:100%;">
-          <span>{{idx+1}}/{{goods.imgArr.length}}</span>
+          <span>{{idx+1}}/{{goods && goods.imgArr.length}}</span>
         </el-carousel-item>
       </el-carousel>
     </div>
-    <div class="address">
+    <div class="address" v-if="goods">
       <p class="price" style="color: #ff6900;padding:0.12rem 0 0.06rem 0;">
         <span style="font-size:0.28rem">￥{{goods.price.price}}</span>
         <del style="color:#999;margin:0 0.08rem;">￥{{goods.price.origPrice}}</del>
@@ -84,6 +84,11 @@ export default {
       })
       .then(res => {
         let { data } = res;
+        data.forEach(item => {
+             if(!item.promotionsTags.length){
+              item.promotionsTags = ["",""]
+             }
+           });
         this.goods = data[0];
         console.log(this.goods[0]);
       });
@@ -98,6 +103,9 @@ export default {
       let { type } = this.$route.params;
       this.$router.push({ name: "Cart", params: { goodsNum: goods.goodsNum } });
     },
+      prev() {
+            this.$router.push({ name: "List", params: { type: this.goods.type } });
+          },
     add2cart(goods) {
 			let { goodsNum, productName,category,type,imageUrl,promotionsTags} = this.goods;
 			let proPrice = goods.price.price

@@ -2,8 +2,8 @@
   <div class="list">
     <el-header style="height:0.44rem;padding:0;">
       <header class="mint-header cart">
-        <div class="mint-header-button is-left">
-          <a href="#/" class="router-link-active">
+        <div class="mint-header-button is-left" @click="prev()">
+          <a class="router-link-active">
             <button class="mint-button mint-button--default mint-button--normal">
               <span class="mint-button-icon">
                 <i class="mintui mintui-back"></i>
@@ -15,7 +15,7 @@
         <el-col :span="16">
           <el-input placeholder="洪湖渔家小龙虾49.9元" prefix-icon="el-icon-search" class="mysearch"></el-input>
         </el-col>
-        <el-col :span="2" class="cart-title-icon"><img src="../img/cart_icon.png"></el-col>
+        <el-col :span="2" class="cart-title-icon"><img src="../img/cart_icon.png" @click="next()"></el-col>
         <div class="mint-header-button is-right">
           
           <button class="mint-button mint-button--default mint-button--normal">
@@ -43,7 +43,7 @@
             </el-col>
          </el-row>
         <div class="cartUnit">
-            <ul>
+            <ul v-if="goodslist">
                 <li v-for="goods in goodslist" :key='goods.sysNo' @click='goto(goods)'>
                     <img :src="goods.imageUrl">
                     <div class="info">
@@ -52,7 +52,7 @@
                         {{goods.promotionWord}}
                     </p>
                     <p class="method">{{goods.promotionsTags[0][0]}}</p>
-                    <p class="price"><span>{{goods.price.price}}</span><del>{{goods.price.origPrice}}</del></p>
+                    <p class="price"><span>￥{{goods.price.price}}</span><del>￥{{goods.price.origPrice}}</del></p>
                     
                     <i><img src="../img/cart_icon.png"></i>
                     </div>
@@ -67,8 +67,7 @@
     export default {
      data(){
         return {
-            goodslist:[],
-
+            goodslist:null
         }
     },
     methods:{
@@ -76,7 +75,13 @@
         let {type} = this.$route.params; 
         this.$router.push({name:'Goods',params:{goodsNum:goods.goodsNum}});
         
-      }
+      },
+      prev(){
+        this.$router.go(-2)
+      },
+      next(){
+      this.$router.push('/cart');
+      },
   },
     created(){
         let {type} = this.$route.params;
@@ -87,6 +92,11 @@
            }
          }).then((res)=>{
            let {data} = res;
+           data.forEach(item => {
+             if(!item.promotionsTags.length){
+              item.promotionsTags = ["",""]
+             }
+           });
            this.goodslist = data;
            console.log("this.goodslist=",this.goodslist);
         });

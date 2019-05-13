@@ -5,7 +5,9 @@
       class="el-menu-vertical-demo"
       background-color="#545c64"
       text-color="#fff"
-      active-text-color="#ffd04b" router
+      active-text-color="#ffd04b"
+      @select="aaa"
+       router
     >
       <el-menu-item index="/home/home2">
         <i class="el-icon-s-home"></i>
@@ -46,7 +48,11 @@
 
 <script>
 export default {
-
+methods:{
+  aaa(value){
+    console.log(value)
+    }
+}
 };
 </script>
 

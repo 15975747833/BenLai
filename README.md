@@ -29,7 +29,9 @@
 
 ## 项目文件夹结构树
 
-C:.
+* 注：**be文件夹为后端运行文件，CMS文件夹为后台管理系统**
+
+
 │  .gitignore
 │  babel.config.js
 │  jiang.txt
@@ -40,8 +42,117 @@ C:.
 ├─assets
 │      logo.png
 │
+├─be 
+│  │  package-lock.json
+│  │  package.json
+│  │
+│  └─src
+│      │  config.json
+│      │  server.js
+│      │
+│      ├─db
+│      │      index.js
+│      │
+│      ├─routers
+│      │      cart.js
+│      │      goods.js
+│      │      goodslist.js
+│      │      homeinfo.js
+│      │      index.js
+│      │      list.js
+│      │      login.js
+│      │      manage.js
+│      │      managereg.js
+│      │      menu.js
+│      │      order.js
+│      │      putdata.js
+│      │      reg.js
+│      │      users.js
+│      │
+│      └─utils
+│              index.js
+│
+├─CMS
+│  │  .gitignore
+│  │  package-lock.json
+│  │  package.json
+│  │  README.md
+│  │  webpack.config.js
+│  │
+│  ├─doc
+│  └─src
+│      │  app.js
+│      │  App.vue
+│      │  template.html
+│      │
+│      ├─components
+│      │      Maside.vue
+│      │      Mfooter.vue
+│      │      Mheader.vue
+│      │
+│      ├─img
+│      │      bg.gif
+│      │      bg.jpg
+│      │      head-bg.png
+│      │      logo.jpg
+│      │      u748.png
+│      │
+│      ├─pages
+│      │      Addgoods.vue
+│      │      Category.vue
+│      │      Echart.vue
+│      │      Goodslist.vue
+│      │      Goodsnone.vue
+│      │      Home.vue
+│      │      Home2.vue
+│      │      Login.vue
+│      │      Myinfo.vue
+│      │      Orderlist.vue
+│      │      Userslist.vue
+│      │
+│      ├─router
+│      │      index.js
+│      │
+│      ├─sass
+│      │      common.scss
+│      │
+│      └─store
+│              index.js
+│
 ├─components
 │      HelloWorld.vue
+│
+├─dist
+│  │  index.html
+│  │
+│  ├─css
+│  │      app.43ff192a.css
+│  │      base.css
+│  │      chunk-vendors.faf1b6a9.css
+│  │
+│  ├─fonts
+│  │      element-icons.535877f5.woff
+│  │      element-icons.732389de.ttf
+│  │
+│  ├─img
+│  │      alipay.175dfbf2.svg
+│  │      sina.e6bc0ae1.svg
+│  │      taobao.f77c5cdc.svg
+│  │      user.cda92e3f.svg
+│  │      userbg.18158814.jpg
+│  │      wechat.07d48ee5.svg
+│  │
+│  ├─imgs
+│  │      jingjing.jpg
+│  │      laoxie.jpg
+│  │      laoyao.jpg
+│  │      lemon.jpg
+│  │
+│  └─js
+│          app.7b97db30.js
+│          app.7b97db30.js.map
+│          chunk-vendors.a78b5eec.js
+│          chunk-vendors.a78b5eec.js.map
 │
 ├─public
 │  │  index.html
@@ -70,6 +181,7 @@ C:.
 │  │
 │  ├─components
 │  │      Footer.vue
+│  │      search_new_box.vue
 │  │
 │  ├─img
 │  │      alipay.svg
@@ -92,6 +204,7 @@ C:.
 │          List.vue
 │          Login.vue
 │          My.vue
+│          Myorder.vue
 │          Pay.vue
 │          Recharge.vue
 │          Search.vue
@@ -99,6 +212,9 @@ C:.
 └─views
         About.vue
         Home.vue
+
+
+
 
 ## 技术栈
 

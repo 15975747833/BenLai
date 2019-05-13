@@ -87,26 +87,25 @@
         <dl>
           <dt>
             <p>我的订单</p>
-            <a href="#" name="Buying_1">查看全部订单</a>
+            <a name="Buying_1" @click="myorder">查看全部订单</a>
           </dt>
           <dd>
-            <a href="#" name="Buying_2">
-              <em class="el-icon-s-ticket"></em>
+            <a name="Buying_2" style="color:#65b32b;">
+              <em class="el-icon-bank-card"></em>
               <p>待支付</p>
             </a>
-            <a href="#" name="Buying_3">
-              <em class="el-icon-s-comment"></em>
+            <a name="Buying_3" style="color:#65b32b;">
+              <em class="el-icon-truck"></em>
 
               <p>配送中</p>
             </a>
-            <a href="#" name="Buying_4">
-              <em class="el-icon-s-comment"></em>
+            <a name="Buying_4" style="color:#65b32b;">
+              <em class="el-icon-chat-line-round"></em>
 
               <p>待评价</p>
             </a>
-            <a href="#">
-              <em class="el-icon-s-comment"></em>
-
+            <a style="color:#65b32b;">
+              <em class="el-icon-sold-out"></em>
               <p>退换货</p>
             </a>
           </dd>
@@ -136,9 +135,9 @@
            <dd class="ico">
             <el-row>
               <el-col :span="6" v-for="(item,idx) in ico" :key="idx">
-                <div class="grid-content bg-purple">
-                  <a href="#">
-                    <i :class="item.icon"></i>
+                <div class="grid-content">
+                  <a style="padding:0.1rem;">
+                    <i :class="item.icon" style="color:#65b32b;"></i>
                     <p>{{item.keyname}}</p>
                   </a>
                 </div>
@@ -201,6 +200,9 @@ export default {
       localStorage.removeItem('username');
       localStorage.removeItem('loginStatus');
       this.$router.push({ name: "Home"});     
+    },
+    myorder(){
+      this.$router.push({name: "Myorder",params: { username:this.username}})
     }
   }
 };
@@ -378,7 +380,7 @@ export default {
           li {
             float: left;
             margin-right: 0.1rem;
-            background: #eee;
+            background: #eff5a5;
             border-radius: 0.04rem;
             a {
               height: 0.9rem;

@@ -73,11 +73,11 @@ const router = new VueRouter({
 
 // 全局路由守卫
 router.beforeEach((to,from,next)=>{
-    console.log('beforeEach');
+    // console.log('beforeEach');
     next();
 })
 router.afterEach((to,from)=>{
-    console.log('afterEach')
+    // console.log('afterEach')
 })
 
 export {

@@ -15,68 +15,74 @@ import Search from './views/Search.vue';
 import Address from './views/Address.vue';
 import Goods from './views/Goods.vue';
 import Pay from './views/Pay.vue';
+import Myorder from './views/Myorder.vue';
 
 
 const router = new Router({
   base: process.env.BASE_URL,
 
   routes: [{
-      path: '/',
-      redirect: '/home'
-    },
-    {
-      name: 'Home',
-      path: '/home',
-      component: Home
+    path: '/',
+    redirect: '/home'
+  },
+  {
+    name: 'Home',
+    path: '/home',
+    component: Home
 
-    },
-    {
-      name: 'Category',
-      path: '/category',
-      component: Category,
+  },
+  {
+    name: 'Category',
+    path: '/category',
+    component: Category,
 
-    },
-    {
-      name: 'Login',
-      path: '/login',
-      component: Login
-    },
-    {
-      name: 'Cart',
-      path: '/cart',
-      component: Cart,
-      meta: {
-        loginStatus: true
-      }
-    },
-    {
-      name: 'My',
-      path: '/my',
-      component: My
-    },
-    {
-      name: 'Search',
-      path: '/search',
-      component: Search
-    },
-    {
-      name: 'Address',
-      path: '/address',
-      component: Address
-    }, {
-      name: 'List',
-      path: '/list',
-      component: List
-    }, {
-      name: 'Goods',
-      path: '/goods',
-      component: Goods,
-    },
-    {
-      name: 'Pay',
-      path: '/pay',
-      component: Pay,
+  },
+  {
+    name: 'Login',
+    path: '/login',
+    component: Login
+  },
+  {
+    name: 'Cart',
+    path: '/cart',
+    component: Cart,
+    meta: {
+      loginStatus: true
     }
+  },
+  {
+    name: 'My',
+    path: '/my',
+    component: My
+  },
+  {
+    name: 'Search',
+    path: '/search',
+    component: Search
+  },
+  {
+    name: 'Address',
+    path: '/address',
+    component: Address
+  }, {
+    name: 'List',
+    path: '/list',
+    component: List
+  }, {
+    name: 'Goods',
+    path: '/goods',
+    component: Goods,
+  },
+  {
+    name: 'Pay',
+    path: '/pay',
+    component: Pay,
+  },
+  {
+    name: 'Myorder',
+    path: '/myorder',
+    component: Myorder,
+  }
   ]
 
 })
@@ -96,18 +102,18 @@ router.beforeEach((to, from, next) => {
         query: {
           redirect: to.fullPath
         }
-        
+
       })
     }
 
-  } else(
+  } else (
     next({
       query: {
         redirect: to.fullPath
       }
     })
-  //   console.log('from',from),
-  // console.log('to',to)
+    //   console.log('from',from),
+    // console.log('to',to)
   )
 
 })

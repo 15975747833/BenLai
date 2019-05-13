@@ -33,7 +33,7 @@
         </div>
       </div>
     </div>
-    <div id="main">
+    <div id="main" @click="homeClick">
       <div class="banner">
         <el-carousel class="lbt" height="170px">
           <el-carousel-item v-for="item in imgs" :key="item.id">
@@ -116,6 +116,9 @@ export default {
       });
   },
   methods: {
+    homeClick(){
+      this.$router.push('/category');
+    },
     goto(path) {
       this.$router.push(path);
     },

@@ -1,5 +1,8 @@
 <template>
   <div class="userslist">
+
+
+
     <el-table :data="tableData" v-loading="loading" style="width: 100%">
       <el-table-column label="全选" type="selection"></el-table-column>
       <el-table-column type="index" label="#" width="50px"></el-table-column>
@@ -8,45 +11,39 @@
       <el-table-column prop="date" label="注册时间" sortable></el-table-column>
       <el-table-column label="操作" width="180px">
         <template slot-scope="scope">
-          <!-- <el-button size="mini" type="text" @click="remark(scope.$index,scope.row)"> -->
-          <el-button size="mini" type="text" @click="open(scope.$index,scope.row)">备注</el-button>
+       
+          <!-- <el-button size="mini" type="text" @click="open(scope.$index,scope.row)">备注</el-button> -->
+    <el-button type="text" @click="remark(scope.$index,scope.row)">备注</el-button>
+      <el-dialog title="备注客户信息" :visible.sync="dialogFormVisible">
+        <el-form :model="form">
+          <el-form-item label="客户姓名" :label-width="formLabelWidth">
+            <el-input v-model="form.name" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="客户地址" :label-width="formLabelWidth">
+            <el-input v-model="form.address" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="客户邮箱" :label-width="formLabelWidth">
+            <el-input v-model="form.email" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="客户爱好" :label-width="formLabelWidth">
+            <el-input v-model="form.hobby" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="aa" :loading="loading2">确 定</el-button>
+        </div>
+      </el-dialog>
+
+
+
+
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index,scope.row)">删除用户</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <div v-show="tijiaostatus" style="width:100%;height:100%;background:rgba(220,220,220,0.8);position:fixed;left:0;top:0;z-index:100;">
-
-    
-    <div class="beizhu">
-      
-      <el-form
-        label-width="100px"
-      >
-      <el-form-item>
-        <h3>
-          备注：
-        <span style="float:right;cursor: pointer;" @click="close">&times;</span>
-        </h3>
-      </el-form-item>
-        <el-form-item prop="name">
-          <el-input v-model="realname" placeholder="真实名称"></el-input>
-        </el-form-item>
-        <el-form-item prop="address">
-          <el-input v-model="address" placeholder="地址"></el-input>
-        </el-form-item>
-        <el-form-item prop="email">
-          <el-input v-model="email" placeholder="邮箱"></el-input>
-        </el-form-item>
-        <el-form-item prop="hobby">
-          <el-input v-model="hobby" placeholder="爱好"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="remark" :loading="loading2">添加</el-button>
-        </el-form-item>
-      </el-form>
     </div>
-    </div>
-  </div>
+  
 </template>
 
 <script>
@@ -58,11 +55,14 @@ export default {
       tijiaostatus: false,
       loading2:false,
       currentName:"",
-      
-        realname:"",
-        address:"",
-        email:"",
-        hobby:""
+      dialogFormVisible: false,
+        form: {
+          name: '',
+          address:"",
+          email:"",
+          hobby:"",
+        },
+        formLabelWidth: '180px'
       
     };
   },
@@ -113,13 +113,20 @@ export default {
           console.log(data);
         });
     },
+  remark(index, row){
+      console.log(index, row.name);
+      this.currentName = row.name;
+      this.dialogFormVisible = true
+  },
 
-    remark() {
+
+    aa(){
+      console.log(this.form);
       let params = {
-        realname: this.realname,
-        address: this.address,
-        email: this.email,
-        hobby: this.hobby
+        realname: this.form.name,
+        address: this.form.address,
+        email: this.form.email,
+        hobby: this.form.hobby
        }
       console.log("this.ruleForm=",params);
       this.loading2= true;
@@ -139,21 +146,11 @@ export default {
         this.email="";
         this.hobby="";
         this.loading2 = false;
+        this.dialogFormVisible=false;
         //刷新当前页面
         this.$router.go(0);
       }, 2000);
-    },
-    open(index,row) {
-      this.tijiaostatus = true;
-     this.currentName = row.name
-    },
 
-    close() {
-      this.tijiaostatus = false;
-      this.realname="";
-        this.address="";
-        this.email="";
-        this.hobby=""
     }
   }
 };

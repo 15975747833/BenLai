@@ -74,23 +74,25 @@ export default {
     };
   },
   created() {
-    let { goods } = this.$route.params;
-    this.goods = goods;
+
+
+    this.goods = JSON.parse(localStorage.getItem("cartData"));
     let cc = 0;
     this.goods.forEach(item =>{
-      cc+=item.proPrice * item.qty;
+      cc += item.proPrice * item.qty;
     })
-    total = cc;
+    this.total = cc;
   },
   methods:{
     getorder(){
-      console.log('getorder')
+      console.log('getorder',this.goods)
       let buyer = localStorage.getItem("username");
       let orderNum;
       let gdArr = [];
       this.goods.forEach(item => {
         let vv = {}
         vv.goodsNum = item.goodsNum;
+        vv.imageUrl = item.imageUrl;
         vv.proPrice=item.proPrice;
         vv.qty=item.qty;
         vv.productName = item.productName;
@@ -104,7 +106,6 @@ export default {
               localStorage.removeItem('cartData');
               this.$store.commit("removeFromCart", {goodslist:"goodslist"});
               this.$router.push({ name: "Home"});   
-              
             });
     }
   }
