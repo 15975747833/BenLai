@@ -5,7 +5,9 @@
       class="el-menu-vertical-demo"
       background-color="#545c64"
       text-color="#fff"
-      active-text-color="#ffd04b" router
+      active-text-color="#ffd04b"
+      @select="aaa"
+       router
     >
       <el-menu-item index="/home/home2">
         <i class="el-icon-s-home"></i>
@@ -20,24 +22,22 @@
           <i class="el-icon-s-goods"></i>
           <span>商品分类</span>
         </template>
-        <el-menu-item index="3-1">选项1</el-menu-item>
+        <el-menu-item index="/home/category">总类别</el-menu-item>
+         <el-menu-item index="/home/addgoods">添加商品</el-menu-item>
+        <el-menu-item index="/home/goodsnone">紧缺商品</el-menu-item>
       </el-submenu>
-      <el-submenu index="4">
-        <template slot="title">
-          <i class="el-icon-s-flag"></i>
-          <span>库存管理</span>
-        </template>
-        <el-menu-item index="4-1">选项1</el-menu-item>
-        <el-menu-item index="4-2">选项2</el-menu-item>
-      </el-submenu>
-      <el-submenu index="5">
-        <template slot="title">
-          <i class="el-icon-s-custom"></i>
-          <span>用户列表</span>
-        </template>
-        <el-menu-item index="5-1">选项1</el-menu-item>
-      </el-submenu>
-      <el-menu-item index="6">
+        <el-menu-item index="/home/orderlist">
+        <i class="el-icon-notebook-1"></i>
+        <span>
+
+        订单管理
+        </span>
+        </el-menu-item>
+      <el-menu-item index="/home/userslist">
+        <i class="el-icon-s-data"></i>
+        <span slot="title">用户列表</span>
+      </el-menu-item>
+      <el-menu-item index="/home/echart">
         <i class="el-icon-s-data"></i>
         <span slot="title">销售分析</span>
       </el-menu-item>
@@ -48,7 +48,11 @@
 
 <script>
 export default {
-
+methods:{
+  aaa(value){
+    console.log(value)
+    }
+}
 };
 </script>
 

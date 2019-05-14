@@ -9,7 +9,13 @@ import Login from '@/pages/Login.vue';
 import Home from '@/pages/Home.vue';
 import Home2 from '@/pages/Home2.vue';
 import Goodslist from '@/pages/Goodslist.vue';
-import aa from '@/pages/aa.vue';
+import Myinfo from '@/pages/Myinfo.vue';
+import Userslist from '@/pages/Userslist.vue';
+import Category from '@/pages/Category.vue';
+import Addgoods from '@/pages/Addgoods.vue';
+import Orderlist from '@/pages/Orderlist.vue';
+import Goodsnone from '@/pages/Goodsnone.vue';
+import Echart from '@/pages/Echart.vue';
 
 
 // 3.实例化router并配置参数
@@ -26,11 +32,7 @@ const router = new VueRouter({
         path:'/login',
         component:Login
     }
-    ,{
-        name:'aa',
-        path:'/aa',
-        component:aa
-    }
+    
     ,{
         name:'Home',
         path:'/home',
@@ -41,6 +43,29 @@ const router = new VueRouter({
         },{
             path:'goodslist',
             component:Goodslist
+        },{
+            path:'myinfo',
+            component:Myinfo
+        },{
+            path:'userslist',
+            component:Userslist
+        },{
+            path:'category',
+            component:Category
+        },
+        {
+            path:'addgoods',
+            component:Addgoods
+        },
+        {
+            path:'orderlist',
+            component:Orderlist
+        },{
+            path:'goodsnone',
+            component:Goodsnone
+        },{
+            path:'echart',
+            component:Echart
         }]
        
     }]
@@ -48,11 +73,11 @@ const router = new VueRouter({
 
 // 全局路由守卫
 router.beforeEach((to,from,next)=>{
-    console.log('beforeEach');
+    // console.log('beforeEach');
     next();
 })
 router.afterEach((to,from)=>{
-    console.log('afterEach')
+    // console.log('afterEach')
 })
 
 export {

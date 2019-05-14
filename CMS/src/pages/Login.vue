@@ -1,5 +1,6 @@
 <template>
 <div>
+  <!-- 管理员注册模块，不开通 -->
       <div class="reg_page" v-show="regstatus">
         <el-form
           :model="ruleForm"
@@ -58,9 +59,9 @@
           <el-form-item class="loginbtn">
             <el-button type="success" style="width:300px;" @click="login('ruleForm')">登录</el-button>
           </el-form-item>
-          <el-form-item>
+          <!-- <el-form-item>
             <p>还没注册？<span style="color:#00f" @click="gotoreg">立即注册</span> </p>
-          </el-form-item>
+          </el-form-item> -->
         </el-form>
       </div>
 
@@ -123,8 +124,8 @@ export default {
           }
         ]
       },
-      regstatus:true,
-      logstatus:false,
+      regstatus:false,
+      logstatus:true,
     };
   },
   methods: {
@@ -150,7 +151,7 @@ export default {
 
           console.log('加密后：',password)
           this.$axios
-            .post("/api/reg", { username, password})
+            .post("/api/manage", { username, password})
             .then(({ data }) => {
               console.log(data);
               this.regstatus = false;
@@ -199,7 +200,7 @@ export default {
           if(autoLogin){
             params.autoLogin = 1
           }
-          this.$axios.get('/api/login',{
+          this.$axios.get('/api/manage',{
             params
           }).then(({data})=>{
             if(data.status===200){

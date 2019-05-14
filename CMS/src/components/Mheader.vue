@@ -16,14 +16,18 @@
                 <span>{{user}}</span>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>个人信息</el-dropdown-item>
                 <el-dropdown-item>
-                  <span @click="goto2">
+                  <span @click="myinfo">
+                  个人信息
+                  </span>
+                  </el-dropdown-item>
+                <el-dropdown-item>
+                  <span>
                   成交统计
                   </span>
                   </el-dropdown-item>
                 <el-dropdown-item divided >
-                  <span @click="goto">
+                  <span @click="signout">
                   退出登录
                   </span> </el-dropdown-item>
               </el-dropdown-menu>
@@ -48,13 +52,11 @@ methods: {
     console.log('aaa',this.$route.query.user)
       this.user = this.$route.query.user
     },
-    goto() {
-      console.log(666)
+    signout() {
       this.$router.push("/login");
     },
-    goto2() {
-      console.log(666)
-      this.$router.push("/aa");
+    myinfo() {
+      this.$router.push("/home/myinfo");
     }
   }
 }

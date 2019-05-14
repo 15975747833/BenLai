@@ -1,16 +1,18 @@
 <template>
-<div class="home2">
-    <h1>欢迎来到，后台管理系统，在这里，啥都没有</h1>
+    
+<div style="padding:20px">
+
+<el-calendar v-model="value">
+</el-calendar>
 </div>
 </template>
+
 <script>
-export default {
-    
-}
+  export default {
+    data() {
+      return {
+        value: new Date()
+      }
+    }
+  }
 </script>
-<style>
-.home2{
-    text-align: center;
-    font-size: 40px;
-}
-</style>
