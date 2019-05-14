@@ -15,7 +15,7 @@ import Search from './views/Search.vue';
 import Address from './views/Address.vue';
 import Goods from './views/Goods.vue';
 import Pay from './views/Pay.vue';
-
+import Myorder from './views/Myorder.vue';
 
 const router = new Router({
   base: process.env.BASE_URL,
@@ -76,6 +76,10 @@ const router = new Router({
       name: 'Pay',
       path: '/pay',
       component: Pay,
+    },{
+      name: 'Myorder',
+      path: '/myorder',
+      component: Myorder,
     }
   ]
 

@@ -87,7 +87,7 @@
         <dl>
           <dt>
             <p>我的订单</p>
-            <a href="#" name="Buying_1">查看全部订单</a>
+            <a href="#" name="Buying_1" @click="gotoMyorder()">查看全部订单</a>
           </dt>
           <dd>
             <a href="#" name="Buying_2">
@@ -195,6 +195,12 @@ export default {
     goto(){
       // 点击登录，跳转到登录页
       this.$router.push({ name: "Login"});     
+    },
+    gotoMyorder(){
+    
+
+    let saveUsername = localStorage.getItem("username");
+      this.$router.push({name:'Myorder',params:{username:saveUsername}})
     },
     quit(){
       // 点击退出，清除本地存储

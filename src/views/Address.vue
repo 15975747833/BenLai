@@ -22,21 +22,17 @@
       <el-row type="flex" class="row-bg address-input">
         <el-col :span="24">
           <div class="grid-content bg-purple">
-            <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="keyword"></el-input>
+            <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="keyword" @input="search()"></el-input>
           </div>
         </el-col>
       </el-row>
-
-      
-    
-
 
       <div class="city_locate" style="opacity: 1;">
         <dl>
           <dt>定位城市</dt>
           <dd>
             <!-- <a href="javascript:;" rel="nofollow">定位失败，点击重试</a> -->
-            <p>{{getCurrentcity}}</p>
+            <p @click="getLocation()" id="getLocate">{{getCurrentcity}}</p>
           </dd>
         </dl>
       </div>
@@ -80,7 +76,6 @@
             <p v-for="item in city_list" :key="item.indexs">
               <a href="#">{{item.indexs}}</a>
             </p>
-            
           </dd>
         </dl>
       </div>
@@ -88,17 +83,18 @@
 
     <mt-index-list>
       <mt-index-section :index="item.indexs" v-for="item in city_list" :key="item.indexs">
-        <mt-cell :title="citys" v-for="citys in item.citys" :key="citys.index"></mt-cell>
+        <mt-cell :title="citys" v-for="citys in item.citys" :key="citys.index"  @click.native="saveCurrentCity(citys)"></mt-cell>
       </mt-index-section>
-      
     </mt-index-list>
   </div>
 </template>
 
 
 
-
 <script>
+// @click.native="keyword=item"
+
+import $ from 'jquery';
 export default {
   data() {
     return {
@@ -228,7 +224,7 @@ export default {
   //   show_blur:{
 
   //   }
-    
+
   // },
   computed: {
     // getCurrentcity(){
@@ -236,7 +232,6 @@ export default {
     // },
     getCurrentcity: {
       get: function() {
-        console.log(555);
         return this.$store.state.currentcity;
       }
     },
@@ -256,6 +251,78 @@ export default {
       this.$store.commit("saveCurrentCity", currentcity);
       // 把城市定位历史存到browseRecord_city
       this.$store.commit("saveBrowseRecord_city", currentcity);
+      this.$router.go(-1);
+    },
+
+    getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+       
+
+        
+      } else {
+        this.$message("你的设备不支持定位，请手动定位");
+      }
+       function showPosition(position) {
+          console.log(666);
+          // latitude longitude 经度 纬度
+          var latlon =
+            position.coords.latitude + "," + position.coords.longitude;
+
+          //google
+          var url =
+            "http://maps.google.cn/maps/api/geocode/json?latlng=" +
+            latlon +
+            "&language=CN";
+          $.ajax({
+            type: "GET",
+            url: url,
+            beforeSend: function() {
+              $("#getLocate").html("正在定位...");
+            },
+            success: function(json) {
+              console.log('json',json)
+              if (json.status == "OK") {
+                var results = json.results;
+                $.each(results, function(index, array) {
+                  if (index == 0) {
+                    $("#getLocate").html(array["formatted_address"]);
+                  }
+                });
+              }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+              $("#getLocate").html(latlon + "地址位置获取失败");
+            }
+          });
+        }
+    },
+    // get(citys){
+    //   console.log(555)
+    //   console.log(citys);
+    // }
+    search(){
+      var reg = new RegExp(".*"+this.keyword+".*","g");
+      this.$axios.get('http://193.112.60.97:19011/goodslist').then(({data})=>{
+        console.log(data);
+        // data.map(item=>reg.text(item.type))
+        let aa = [];
+        aa = data.map(item=>{
+           if(reg.test(item.type)){
+             aa.push(item);
+             console.log('aa',aa)
+            // 把得到的aa去重并存入数组
+          }
+        });
+        let bb =[];
+        bb = data.map(item=>{
+           if(reg.test(item.category)){
+             bb.push(item);
+             console.log('bb',bb)
+            // 把得到的aa去重并存入数组 用去重后的数组进行渲染
+          }
+        })
+      })
     }
   }
 };
