@@ -26,7 +26,28 @@
       </el-header>
 
       <el-main>
-        <p>配送地址:广东省广州市天河区千峰教育</p>
+        <p>配送地址:
+          <span>
+
+          {{address}}
+          </span>
+          <span style="color:#00f;" @click="dialogFormVisible = true">
+          点击修改地址
+          </span>
+          <!-- <el-button type="text" @click="dialogFormVisible = true">打开嵌套表单的 Dialog</el-button> -->
+
+            <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+              <el-form >
+                
+                  <el-input v-model="newaddress" autocomplete="off"></el-input>
+                
+              </el-form>
+              <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false" style="width:30%;padding:0.05rem;">取 消</el-button>
+                <el-button type="primary" @click="changeaddress" style="width:30%;padding:0.05rem;">确 定</el-button>
+              </div>
+            </el-dialog>
+          </p>
         <p>配送时间：工作日</p>
         <div class="myorder">
          
@@ -54,9 +75,9 @@
             </p>
           </el-col>
 
-          <el-col :span="6" class="yangshi2">
-            <p class="pay">
-              <span @click="getorder" style="line-height:0.4rem">提交订单</span>
+          <el-col :span="6" class="yangshi2" style="height:0.6rem;">
+            <p class="pay" style="height:100%">
+              <span @click="getorder" style="line-height:0.4rem;height:100%;font-size: 0.16rem;line-height: 0.6rem;">提交订单</span>
             </p>
           </el-col>
         </el-row>
@@ -70,7 +91,10 @@ export default {
   data() {
     return {
       goods: null,
-      total:null
+      total:null,
+      address:"广东省广州市天河区",
+       dialogFormVisible: false,
+      newaddress:''
     };
   },
   created() {
@@ -84,10 +108,16 @@ export default {
     this.total = cc;
   },
   methods:{
+    changeaddress(){
+      this.address = this.newaddress;
+      this.newaddress = '';
+      this.dialogFormVisible = false
+    },
     getorder(){
       console.log('getorder',this.goods)
       let buyer = localStorage.getItem("username");
       let orderNum;
+      let address = this.address
       let gdArr = [];
       this.goods.forEach(item => {
         let vv = {}
@@ -100,13 +130,15 @@ export default {
         gdArr.push(vv)
       });
       this.$axios
-            .post("http://193.112.60.97:19011/order", { buyer,orderNum, gdArr })
+            .post("http://193.112.60.97:19011/order", { buyer, address,orderNum, gdArr })
             .then(({ data }) => {
               alert('已创建订单')
               localStorage.removeItem('cartData');
               this.$store.commit("removeFromCart", {goodslist:"goodslist"});
               this.$router.push({ name: "Home"});   
             });
+
+
     }
   }
 };
@@ -154,4 +186,5 @@ export default {
     }
   }
 }
+
 </style>

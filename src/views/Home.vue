@@ -123,6 +123,9 @@ export default {
       this.$router.push(path);
     },
     change(type){
+    if(type == 'fish' ||type == 'fruit'|| type == 'home'){
+
+   
       this.$axios
       .get("http://193.112.60.97:19011/homeinfo", {
         params: {
@@ -136,7 +139,7 @@ export default {
         this.tabhui = data[0].tabhui;
         this.tab3 = data[0].tab3;
       });
-      console.log(type)
+       }
     }
   },
   computed: {

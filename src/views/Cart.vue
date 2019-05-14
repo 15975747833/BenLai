@@ -78,7 +78,9 @@
           <ul style="padding-bottom:0.5rem;">
             <li v-for="item in tuijian" :key="item.goodsNum">
               <img :src="item.imageUrl" alt @click="gotogoods(item)">
-              <p class="name">{{item.productName}}</p>
+              <p class="name" style="overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;">{{item.productName}}</p>
               <div class="price">
                 <p>
                   <span>￥{{item.price.price}}</span>
@@ -100,9 +102,9 @@
                 合计
                 <span class="totalPrice">￥{{totalPrice}}</span>
               </el-col>
-              <el-col :span="5" class="yangshi2">
-                <p class="pay">
-                  <span @click="goto">
+              <el-col :span="5" class="yangshi2" style="padding:0;height:0.6rem;">
+                <p class="pay" style="height:100%;">
+                  <span @click="goto" style="height:100%;padding-top:0.1rem;">
                     去结算
                     <b class="yunfei">(运费0元)</b>
                   </span>
@@ -127,6 +129,9 @@ export default {
   },
   created() {
     let aa = JSON.parse(localStorage.getItem("cartData"));
+    if(aa){
+
+   
     let bb = [];
     for (var i = 0; i < aa.length; i++) {
       bb[i] = aa[i];
@@ -145,9 +150,8 @@ export default {
       .then(res => {
         let { data } = res;
         this.tuijian = data;
-        // console.log(this.tuijian);
-        // console.log("this.$store=", this.$store);
       });
+       }
   },
   computed: {
     totalPrice() {
@@ -156,9 +160,9 @@ export default {
         0
       );
     },
-    goods() {
-      return this.$store.state.goodslist;
-    }
+    // goods() {
+    //   return this.$store.state.goodslist;
+    // }
   },
   methods: {
     goto(goods) {
@@ -232,10 +236,13 @@ export default {
           this.$store.commit("changeQty", { goodsNum, qty: value });
           // console.log(777, $store);
         }
+        let mystorage = this.$store.state.goodslist;
+        let aa = JSON.stringify(mystorage)
+        localStorage.setItem("cartData",aa);
       });
     },
     prev(){
-      this.$router.go(-1)
+       this.$router.push({ name: "Category"});
     }
   }
 };
@@ -349,9 +356,12 @@ export default {
           height: 1.27rem;
         }
         .name {
-          height: 0.33rem;
+          height: 0.2rem;
         }
         p {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
           padding: 0 0 0 0.1rem;
           text-align: left;
           font-size: 0.12rem;
@@ -370,7 +380,7 @@ export default {
           }
           del {
             padding: 0 0 0 0.12rem;
-            font-size: 0.02rem;
+            font-size: 0.12rem;
           }
           i {
             display: block;

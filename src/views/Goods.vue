@@ -90,7 +90,6 @@ export default {
              }
            });
         this.goods = data[0];
-        console.log(this.goods[0]);
       });
 	},
 	computed:{
@@ -101,6 +100,7 @@ export default {
   methods: {
     goto(goods) {
       let { type } = this.$route.params;
+      console.log(goods)
       this.$router.push({ name: "Cart", params: { goodsNum: goods.goodsNum } });
     },
       prev() {

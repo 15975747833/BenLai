@@ -199,6 +199,8 @@ export default {
       // 点击退出，清除本地存储
       localStorage.removeItem('username');
       localStorage.removeItem('loginStatus');
+       localStorage.removeItem('cartData');
+      this.$store.commit("removeFromCart", {goodslist:"goodslist"});
       this.$router.push({ name: "Home"});     
     },
     myorder(){
