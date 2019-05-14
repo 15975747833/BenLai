@@ -56,43 +56,46 @@ export default {
   },
   created() {
     let { username } = this.$route.params;
-    this.$axios
-      .get("http://193.112.60.97:19011/order", {
-        params: {
-          buyer: username
-        }
-      })
-      .then(({ data }) => {
-        data.forEach(item => {
-          for (var i = 0; i < item.gdArr.length; i++) {
-            let aa = {};
-            aa.buyer = item.buyer;
-            aa.orderNum = item.orderNum;
-            aa.imageUrl = item.gdArr[i].imageUrl;
-            aa.goodsNum = item.gdArr[i].goodsNum;
-            aa.goodsNum = item.gdArr[i].goodsNum;
-            aa.proPrice = item.gdArr[i].proPrice;
-            aa.productName = item.gdArr[i].productName;
-            aa.qty = item.gdArr[i].qty;
-            var d = new Date(item.time);
-            var arr = "天,一,二,三,四,五,六".split(",");
-            var year = d.getFullYear();
-            var month = d.getMonth() + 1;
-            var date = d.getDate();
-            var day = d.getDay(); //
-            var hour = d.getHours();
-            var minute = d.getMinutes();
-            var second = d.getSeconds();
-            hour = hour < 10 ? "0" + hour : hour;
-            minute = minute < 10 ? "0" + minute : minute;
-            second = second < 10 ? "0" + second : second;
-            let cc = `${year}/${month}/${date} ${hour}:${minute}:${second}`;
-            aa.time = cc;
-            this.orderlist.push(aa);
+    if(username){
+
+      this.$axios
+        .get("http://193.112.60.97:19011/order", {
+          params: {
+            buyer: username
           }
+        })
+        .then(({ data }) => {
+          data.forEach(item => {
+            for (var i = 0; i < item.gdArr.length; i++) {
+              let aa = {};
+              aa.buyer = item.buyer;
+              aa.orderNum = item.orderNum;
+              aa.imageUrl = item.gdArr[i].imageUrl;
+              aa.goodsNum = item.gdArr[i].goodsNum;
+              aa.goodsNum = item.gdArr[i].goodsNum;
+              aa.proPrice = item.gdArr[i].proPrice;
+              aa.productName = item.gdArr[i].productName;
+              aa.qty = item.gdArr[i].qty;
+              var d = new Date(item.time);
+              var arr = "天,一,二,三,四,五,六".split(",");
+              var year = d.getFullYear();
+              var month = d.getMonth() + 1;
+              var date = d.getDate();
+              var day = d.getDay(); //
+              var hour = d.getHours();
+              var minute = d.getMinutes();
+              var second = d.getSeconds();
+              hour = hour < 10 ? "0" + hour : hour;
+              minute = minute < 10 ? "0" + minute : minute;
+              second = second < 10 ? "0" + second : second;
+              let cc = `${year}/${month}/${date} ${hour}:${minute}:${second}`;
+              aa.time = cc;
+              this.orderlist.push(aa);
+            }
+          });
+          console.log("this.orderlist=", this.orderlist);
         });
-        console.log("this.orderlist=", this.orderlist);
-      });
+    }
   }
 };
 </script>
