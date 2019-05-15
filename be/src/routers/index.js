@@ -14,6 +14,7 @@ const orderRouter = require('./order');
 const homeinfoRouter = require('./homeinfo');
 const manageRouter = require('./manage');
 const manageregRouter = require('./managereg');
+const uploadRouter = require('./upload');
 // 跨域支持
 // Router.use(function(req, res, next) {
 //     res.header("Access-Control-Allow-Origin", "*");
@@ -54,4 +55,5 @@ Router.use('/order',orderRouter);
 Router.use('/homeinfo',homeinfoRouter);
 Router.use('/manage',manageRouter);
 Router.use('/managereg',manageregRouter);
+Router.use('/upload',uploadRouter);
 module.exports = Router;

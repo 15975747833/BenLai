@@ -16,11 +16,11 @@ const colName = 'orderlist';
 
 // 注册用户
 Router.post('/',async (req,res)=>{
-    let {buyer,orderNum,gdArr} = req.body;
+    let {buyer,address,orderNum,gdArr} = req.body;
     console.log('提交订单',orderNum,gdArr)
     let result = {}
     try{
-        result = await db.create(colName,{buyer,orderNum,gdArr,time:Date.now()});
+        result = await db.create(colName,{buyer,address,orderNum,gdArr,time:Date.now()});
         result = formatData({data:result})
     }catch(err){
         result = formatData({status:400,msg:err})

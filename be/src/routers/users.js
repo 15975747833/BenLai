@@ -15,10 +15,17 @@ const colName = 'users';
 
 
 Router.get('/',async (req,res)=>{
-
+    let {username} = req.query;
+    console.log("req.params=",req.params)
+    console.log("req.body=",req.body)
+    console.log("req.query=",req.query)
+    let canshu = {}
+    if(username){
+        canshu.username = username
+    }
     let result = {}
     try{
-        result = await db.find(colName);
+        result = await db.find(colName,canshu);
         if(result.length>0){
             // result = formatData(result,{status:400})
         }else{
@@ -35,9 +42,7 @@ Router.delete('/',async (req,res)=>{
     console.log("正在执行删除用户操作")
 
     let query = req.query;
-    console.log("req.params=",req.params)
-    console.log("req.body=",req.body)
-    console.log("req.query=",req.query)
+
     
     let result = {}
     try{

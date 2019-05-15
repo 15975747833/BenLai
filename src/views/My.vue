@@ -18,11 +18,25 @@
     <el-main>
       <div class="benlai-green" style="margin-top:0.4rem;">
         <div class="benlai-top">
-          <div class="benlai-top-title">
-            <div class="circle" style="background:#fff;">
-              <img src="../img/user.svg" style="width:60%;margin:auto;padding-top:0.1rem;">
-            </div>
-            <div class="info">
+          <div class="benlai-top-title" style="position:relative;">
+
+
+            <!-- 上传头像 -->
+            <div style="background:#fff;border-radius:50%;width:0.6rem;height:0.6rem;position:absolute;overflow:hidden;">
+            <el-upload
+              class="avatar-uploader"
+              :action="uploadpath"
+              :data="user" 
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload"
+              >
+              <img v-if="imageUrl" :src="imageUrl" class="avatar" style="width:100%;height:100%;">
+              <i v-else style="display:block;width:0.6rem;height:0.6rem;"></i>
+            </el-upload>
+</div>
+
+            <div class="info" style="position:absolute;z-index:100;left:0.8rem;">
               <p style="color:#fff;">{{username}}</p>
               <i style="padding:0.2rem;color:#fff;font-size:0.17rem;line-height: 0.44rem;" @click="goto" v-show="loginstatus">登录/注册</i>
             </div>
@@ -155,9 +169,12 @@ export default {
   data() {
     return { 
       username: null,
+      user:{},
       loginstatus:true,
       quitstatus:false,
       headerstatus:false,
+      imageUrl: '',
+      uploadpath:'http://193.112.60.97:19011/upload',
       ico: [
         { keyname: "我的会员", icon: "el-icon-star-on" },
         { keyname: "赠品兑换 ", icon: "el-icon-star-on" },
@@ -182,8 +199,18 @@ export default {
     let saveUsername = localStorage.getItem("username");
     if (saveUsername) {
       this.username = saveUsername;
+      this.user = {user:saveUsername}
       this.loginstatus=false;
       this.quitstatus=true
+      this.$axios.get('http://193.112.60.97:19011/users',{
+        params: {
+              username: this.username
+            }
+      }).then(({data})=>{
+        console.log(data[0].imgurl);
+        this.imageUrl = "http://193.112.60.97:19011/public/"+ data[0].imgurl
+
+      })
     } else {
       this.username = null;
       this.loginstatus=true;
@@ -205,7 +232,22 @@ export default {
     },
     myorder(){
       this.$router.push({name: "Myorder",params: { username:this.username}})
-    }
+    },
+    handleAvatarSuccess(res, file) {
+        this.imageUrl = URL.createObjectURL(file.raw);
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$message.error('上传头像图片只能是 JPG 格式!');
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!');
+        }
+        return isJPG && isLt2M;
+      }
   }
 };
 </script>
@@ -260,7 +302,7 @@ export default {
         font-size: 0.25rem;
         line-height: 0.5rem;
         p {
-          padding-left: 0.8rem;
+          padding-left: 0.2rem;
         }
       }
     }
@@ -437,5 +479,9 @@ export default {
       }
     }
   }
+}
+.avatar-uploader .el-upload{
+  width: 0.6rem;
+  background:#f00;
 }
 </style>
